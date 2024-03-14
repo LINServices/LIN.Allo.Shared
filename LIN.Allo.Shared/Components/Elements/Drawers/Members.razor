@@ -75,7 +75,7 @@
                 @foreach (var e in NewMembers)
                 {
 
-                        <Profile e="@e" @ref=SearchResultControl OnSelect="OnSelect" State="2" />
+                        <Profile SessionModel="@e" @ref=SearchResultControl OnSelect="OnSelect" State="2" />
                 }
 
                 
@@ -89,7 +89,7 @@
                     if (!find && x && Access.Communication.Session.Instance.Profile.AccountID != e.Account.Id)
                     {
 
-                        <Profile e="@e" @ref=SearchResultControl OnSelect="OnSelect" />
+                        <Profile SessionModel="@e" @ref=SearchResultControl OnSelect="OnSelect" />
                     }
                 }
 

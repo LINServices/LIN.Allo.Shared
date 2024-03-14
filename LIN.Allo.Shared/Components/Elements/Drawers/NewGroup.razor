@@ -144,7 +144,7 @@
                         {
                             if (!SelectedItems.Where(T => T.Profile.ID == e.Profile.ID).Any() && Access.Communication.Session.Instance.Profile.AccountID != e.Account.Id)
                             {
-                                <Profile OnSelect="OnSelect" e="@e" @ref=MemberControl />
+                                <Profile OnSelect="OnSelect" SessionModel="@e" @ref=MemberControl />
                             }
                         }
                     </div>

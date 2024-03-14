@@ -1,6 +1,4 @@
-﻿using LIN.Types.Cloud.Identity.Abstracts;
-
-namespace LIN.Allo.Shared.Components.Elements;
+﻿namespace LIN.Allo.Shared.Components.Elements;
 
 
 public partial class NewFriend
@@ -19,9 +17,7 @@ public partial class NewFriend
     /// Acción a realizar cuando se haga click.
     /// </summary>
     [Parameter]
-    public Action<SessionModel<ProfileModel>> OnSelect { get; set; } = (e) =>
-    {
-    };
+    public Action<SessionModel<ProfileModel>> OnSelect { get; set; } = (e) =>{ };
 
 
 
