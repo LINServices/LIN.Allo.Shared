@@ -89,7 +89,7 @@ public partial class Members
             var result = await Access.Communication.Controllers.Conversations.MembersInfo(id, Session.Instance.Token, Session.Instance.AccountToken);
 
             // Modelos a la UI.
-            MemberModels = result.Models.OrderByDescending(t => t.Profile.Rol).ToList();
+            MemberModels = [.. result.Models.OrderByDescending(t => t.Profile.Rol)];
 
             Cache.RemoveAll(t => t.Item1 == id);
             Cache.Add(new(id, MemberModels));
@@ -103,6 +103,8 @@ public partial class Members
 
 
     private List<SessionModel<ProfileModel>> SearchResult { get; set; } = new();
+
+
 
     /// <summary>
     /// Buscar elementos.
