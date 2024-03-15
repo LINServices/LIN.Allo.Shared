@@ -112,11 +112,6 @@ public class Scripts
         };
 
 
-
-
-
-
-
         // Acción.
         SILFFunction actionSelect =
         new(async (param) =>

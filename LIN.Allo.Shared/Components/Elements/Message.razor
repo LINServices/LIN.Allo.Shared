@@ -20,11 +20,11 @@
 
                     if (pair.StartsWith("@"))
                    {
-                        <span class="@(pair.StartsWith("@") && IsOther ? "text-current-600" : "")">@pair</span>
+                        <span class="@(pair.StartsWith("@") && IsOther ? "bg-zinc-300 dark:bg-zinc-900/50" : "bg-current-400")  px-2 p-0.5 rounded-lg text-sm">@pair</span>
                     }
                     else
                     {
-                        <span class="">@MessageModel.Contenido</span>
+                        <span class="">@pair</span>
                     }
 
 

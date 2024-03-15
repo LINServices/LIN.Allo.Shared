@@ -1,6 +1,4 @@
-﻿using LIN.Types.Communication.Models;
-
-namespace LIN.Allo.Shared.Services;
+﻿namespace LIN.Allo.Shared.Services;
 
 
 /// <summary>
@@ -13,7 +11,7 @@ public static class ConversationsObserver
     /// <summary>
     /// Data de las conversaciones.
     /// </summary>
-    public readonly static Dictionary<int, ConversationLocal> Data = [];
+    public static List<(int, ConversationLocal)> Data = [];
 
 
     /// <summary>
@@ -175,18 +173,20 @@ public static class ConversationsObserver
         if (conversation == null)
             return;
 
-        Data.TryGetValue(conversation.ID, out var local);
 
-        if (local == null)
+        var local = Data.Where(t => t.Item1 == conversation.ID).FirstOrDefault();
+
+
+        if (local.Item2 == null)
         {
-
             conversation.Mensajes = null;
 
-            Data.Add(conversation.ID, new()
+            Data.Add((conversation.ID, new()
             {
                 Conversation = conversation,
                 Messages = null!
-            }); ;
+            }));
+
             return;
         }
 
@@ -203,16 +203,19 @@ public static class ConversationsObserver
     public static void PushMessage(int conversation, MessageModel message)
     {
 
-        Data.TryGetValue(conversation, out var local);
+        var local = Data.Where(t => t.Item1 == conversation).FirstOrDefault();
+
 
         Trackers.TryGetValue(conversation, out var trackers);
 
-        if (local == null || trackers == null)
+        if (local.Item2 == null || trackers == null)
             return;
 
-        local.Messages ??= [];
 
-        var exist = local.Messages.Where(t => t.Guid == message.Guid);
+
+        local.Item2.Messages ??= [];
+
+        var exist = local.Item2.Messages.Where(t => t.Guid == message.Guid);
 
         if (exist.Any())
         {
@@ -222,14 +225,30 @@ public static class ConversationsObserver
             foreach (var tracker in trackers)
                 tracker.Change();
 
+
+
+            Remove(conversation);
+
+            Data.Insert(0, (conversation, local.Item2));
+
+            ChatPage.ChatViewer.RefreshUI();
+
             return;
         }
 
 
-        local.Messages.Add(message);
+        local.Item2.Messages.Add(message);
 
         foreach (var tracker in trackers)
             tracker.Change();
+
+
+
+        Remove(conversation);
+
+        Data.Insert(0, (conversation, local.Item2));
+
+        ChatPage.ChatViewer.RefreshUI();
 
     }
 
@@ -241,8 +260,9 @@ public static class ConversationsObserver
     /// <param name="id">Id de la conversación.</param>
     public static ConversationLocal? Get(int id)
     {
-        Data.TryGetValue(id, out var local);
-        return local;
+
+        var local = Data.Where(t => t.Item1 == id).FirstOrDefault();
+        return local.Item2;
     }
 
 
@@ -252,7 +272,7 @@ public static class ConversationsObserver
     /// <param name="id">Id de la conversación.</param>
     public static void Remove(int id)
     {
-        Data.Remove(id);
+        Data.RemoveAll(t => t.Item1 == id);
     }
 
 
