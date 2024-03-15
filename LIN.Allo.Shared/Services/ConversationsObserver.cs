@@ -24,6 +24,11 @@ public static class ConversationsObserver
 
 
 
+    private readonly static Dictionary<int, List<IConversationViewer>> TrackersConversations = [];
+
+
+
+
     /// <summary>
     /// Agregar elemento al observador.
     /// </summary>
@@ -54,6 +59,39 @@ public static class ConversationsObserver
 
 
     /// <summary>
+    /// Agregar elemento al observador.
+    /// </summary>
+    /// <param name="conversation">Id de la conversación.</param>
+    /// <param name="messageChanger">Objecto a observar.</param>
+    public static void Suscribe(int conversation, IConversationViewer messageChanger)
+    {
+
+        // Obtener los observables.
+        TrackersConversations.TryGetValue(conversation, out var trackers);
+
+        // Si no existe.
+        if (trackers == null)
+        {
+            // Crear la lista de observables.
+            TrackersConversations.Add(conversation,
+            [
+                messageChanger
+            ]);
+            return;
+        }
+
+        // Agregar el objeto a la lista.
+        trackers.Add(messageChanger);
+
+    }
+
+
+
+
+
+
+
+    /// <summary>
     /// Eliminar objeto de la lista de observables.
     /// </summary>
     /// <param name="messageChanger">Objeto,</param>
@@ -61,6 +99,20 @@ public static class ConversationsObserver
     {
         // Eliminar objetos.
         foreach (var e in Trackers.Values)
+            e.RemoveAll(t => t == messageChanger);
+
+    }
+
+
+
+    /// <summary>
+    /// Eliminar objeto de la lista de observables.
+    /// </summary>
+    /// <param name="messageChanger">Objeto,</param>
+    public static void UnSuscribe(IConversationViewer messageChanger)
+    {
+        // Eliminar objetos.
+        foreach (var e in TrackersConversations.Values)
             e.RemoveAll(t => t == messageChanger);
 
     }
@@ -86,6 +138,30 @@ public static class ConversationsObserver
             item.Change();
 
     }
+
+
+
+    /// <summary>
+    /// Notificar cambios a los observables.
+    /// </summary>
+    /// <param name="conversation">Id de la conversación.</param>
+    public static void IsUpdate(int conversation, string newName)
+    {
+
+        // Obtener.
+        TrackersConversations.TryGetValue(conversation, out var trackers);
+
+        // No hay.
+        if (trackers == null)
+            return;
+
+        // Notificar cambios.
+        foreach (var item in trackers)
+            item.Change(newName);
+
+    }
+
+
 
 
 
@@ -197,5 +273,13 @@ public interface IMessageChanger
 {
 
     void Change();
+
+}
+
+
+public interface IConversationViewer
+{
+
+    void Change(string newName);
 
 }

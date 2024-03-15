@@ -1,4 +1,5 @@
 ﻿using LIN.Access.Communication;
+using LIN.Types.Communication.Enumerations;
 
 namespace LIN.Allo.Shared.Components.Elements.Drawers;
 
@@ -7,13 +8,23 @@ public partial class Members
 {
 
 
+
+    bool IsEdit = false;
+
     string Pattern;
+    string NewName = "";
 
 
     /// <summary>
     /// Name del grupo.
     /// </summary>
     public string Name { get; set; } = string.Empty;
+
+
+    /// <summary>
+    /// Tipo de conversación.
+    /// </summary>
+    public ConversationsTypes Type { get; set; } = ConversationsTypes.None;
 
 
 
@@ -73,6 +84,7 @@ public partial class Members
     public async Task LoadData(int id, bool force = false)
     {
         IsShowAdd = false;
+        StateHasChanged();
 
         // Busca en el cache.
         var cache = Cache.Where(t => t.Item1 == id).FirstOrDefault();
@@ -99,11 +111,24 @@ public partial class Members
             MemberModels = cache.Item2;
         }
 
+        StateHasChanged();
+
     }
 
 
     private List<SessionModel<ProfileModel>> SearchResult { get; set; } = new();
 
+
+
+    public void SetDefault(string name, ConversationsTypes type)
+    {
+        Name = name;
+        NewName = name;
+        Type = type;
+        IsEdit = false;
+        IsShowAdd = false;
+        StateHasChanged();
+    }
 
 
     /// <summary>
@@ -155,6 +180,61 @@ public partial class Members
     {
         IsShowAdd = !IsShowAdd;
         StateHasChanged();
+    }
+
+
+
+    void ShowEdit()
+    {
+
+        MessageLittle = ("", "");
+
+        if (Type == ConversationsTypes.Personal)
+            return;
+
+        IsEdit = !IsEdit;
+
+        if (IsEdit)
+            NewName = Name;
+
+        StateHasChanged();
+    }
+
+
+    (string, string) MessageLittle = ("text-red-500", "");
+
+    async void UpdateName()
+    {
+
+        if (string.IsNullOrWhiteSpace(NewName))
+        {
+            NewName = Name;
+            MessageLittle = ("text-red-500", "El nombre no puede esta vacío");
+            StateHasChanged();
+            return;
+        }
+
+        MessageLittle = ("text-blue-500", "Espera...");
+        StateHasChanged();
+
+        var response = await LIN.Access.Communication.Controllers.Conversations.UpdateName(ConversationContext.ID, NewName, LIN.Access.Communication.Session.Instance.Token);
+
+        if (response.Response != Responses.Success)
+        {
+            MessageLittle = ("text-red-500", "No se puede actualizar el nombre");
+        }
+        else
+        {
+            MessageLittle = ("text-green-500", "");
+            ConversationsObserver.IsUpdate(ConversationContext.ID, NewName);
+
+        }
+
+
+
+        StateHasChanged();
+
+
     }
 
 
@@ -229,6 +309,7 @@ public partial class Members
 
         if (ChatPage.ChatViewer.Id == ConversationContext.ID && profile == Session.Instance.Profile.ID)
         {
+            await jsRuntime.InvokeVoidAsync("ForceClick", $"close-drawer-{UniqueId}");
             ConversationsObserver.Remove(ConversationContext.ID);
             ChatPage.ChatViewer.Go(0);
         }

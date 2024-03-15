@@ -1,7 +1,7 @@
 ﻿namespace LIN.Allo.Shared.Components.Elements;
 
 
-public partial class Control
+public partial class Control : IConversationViewer, IDisposable
 {
 
     /// <summary>
@@ -92,4 +92,21 @@ public partial class Control
 
     }
 
+    public void Change(string newName)
+    {
+        Member.Conversation.Name = newName;
+        StateHasChanged();
+    }
+
+
+    protected override void OnParametersSet()
+    {
+        ConversationsObserver.Suscribe(Member.Conversation.ID, this);
+    }
+
+
+    public void Dispose()
+    {
+        ConversationsObserver.UnSuscribe(this);
+    }
 }
