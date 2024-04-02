@@ -11,7 +11,7 @@
 
             <div class="relative inline-block mr-2">
                 <div class="inline-flex items-center justify-center w-9 h-9 border border-shark-100 rounded-full bg-zinc-100 p-2 font-bold text-zinc-600 leading-none dark:border-shark-400 dark:bg-shark-900 dark:text-shark-200">
-                    <label class="w-max h-max text-center content-center mt-0.5 lg:mt-0">@(LIN.Modules.Text.GetInitials(SessionModel.Profile.Alias))</label>
+                    <label class="w-max h-max text-center content-center mt-0.5 lg:mt-0">@(Global.Utilities.Strings.GetInitials(SessionModel.Profile.Alias))</label>
                 </div>
 
                 @if (isOnline != null && isOnline.IsOnline)

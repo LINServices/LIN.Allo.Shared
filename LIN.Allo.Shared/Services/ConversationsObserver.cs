@@ -260,7 +260,6 @@ public static class ConversationsObserver
     /// <param name="id">Id de la conversación.</param>
     public static ConversationLocal? Get(int id)
     {
-
         var local = Data.Where(t => t.Item1 == id).FirstOrDefault();
         return local.Item2;
     }

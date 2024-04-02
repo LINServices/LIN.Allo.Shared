@@ -20,6 +20,7 @@ public partial class Control : IConversationViewer, IDisposable
 
 
 
+
     /// <summary>
     /// El control esta seleccionado.
     /// </summary>
@@ -103,6 +104,7 @@ public partial class Control : IConversationViewer, IDisposable
     {
         ConversationsObserver.UnSuscribe(this);
         ConversationsObserver.Suscribe(Member.Conversation.ID, this);
+        StateHasChanged();
     }
 
 
