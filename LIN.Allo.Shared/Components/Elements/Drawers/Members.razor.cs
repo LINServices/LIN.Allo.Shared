@@ -98,7 +98,7 @@ public partial class Members
         if (cache.Item2 == null || force)
         {
             // Respuesta de la API.
-            var result = await Access.Communication.Controllers.Conversations.MembersInfo(id, Session.Instance.Token, Session.Instance.AccountToken);
+            var result = await Access.Communication.Controllers.Members.MembersInfo(id, Session.Instance.Token, Session.Instance.AccountToken);
 
             // Modelos a la UI.
             MemberModels = [.. result.Models.OrderByDescending(t => t.Profile.Rol)];
@@ -149,7 +149,7 @@ public partial class Members
         //AreSearch = true;
         //IsSearching = true;
         StateHasChanged();
-        var result = await Access.Communication.Controllers.Conversations.SearchProfiles(Pattern, Session.Instance.AccountToken);
+        var result = await Access.Communication.Controllers.Members.SearchProfiles(Pattern, Session.Instance.AccountToken);
 
         //IsSearching = false;
         SearchResult = result.Models;
@@ -279,7 +279,7 @@ public partial class Members
         var token = Session.Instance.Token;
         foreach (var x in NewMembers)
         {
-            tasks.Add(Access.Communication.Controllers.Conversations.Insert(ConversationContext.ID, x.Profile.ID, token));
+            tasks.Add(Access.Communication.Controllers.Members.Insert(ConversationContext.ID, x.Profile.ID, token));
         }
 
         await Task.WhenAll(tasks);
@@ -297,7 +297,7 @@ public partial class Members
     async void Remove(int profile)
     {
 
-        var remove = await Access.Communication.Controllers.Conversations.Remove(ConversationContext.ID, profile, Session.Instance.Token);
+        var remove = await Access.Communication.Controllers.Members.Remove(ConversationContext.ID, profile, Session.Instance.Token);
 
         try
         {

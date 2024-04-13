@@ -190,7 +190,7 @@ public partial class NewGroup
         AreSearch = true;
         IsSearching = true;
         StateHasChanged();
-        var result = await Access.Communication.Controllers.Conversations.SearchProfiles(Pattern, Access.Communication.Session.Instance.AccountToken);
+        var result = await Access.Communication.Controllers.Members.SearchProfiles(Pattern, Access.Communication.Session.Instance.AccountToken);
 
         IsSearching = false;
         MemberModels = result.Models;

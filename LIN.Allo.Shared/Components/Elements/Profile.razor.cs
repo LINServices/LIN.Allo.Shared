@@ -45,7 +45,7 @@ public partial class Profile
     private async void Confirm(int id)
     {
         // Solicitud.
-        var response = await Access.Communication.Controllers.Conversations.IsOnline(id, LIN.Access.Communication.Session.Instance.Token);
+        var response = await Access.Communication.Controllers.Members.IsOnline(id, LIN.Access.Communication.Session.Instance.Token);
         
         isOnline = response.Model;
         StateHasChanged();

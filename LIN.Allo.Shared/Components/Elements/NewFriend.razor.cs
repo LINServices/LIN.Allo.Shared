@@ -54,7 +54,7 @@ public partial class NewFriend
         StateHasChanged();
 
         // Obtiene la información de la conversación.
-        var conversation = await Access.Communication.Controllers.Conversations.Find(UserInformation.Profile.ID, Access.Communication.Session.Instance.Token);
+        var conversation = await Access.Communication.Controllers.Members.Find(UserInformation.Profile.ID, Access.Communication.Session.Instance.Token);
 
         // Error.
         if (conversation.Response != Responses.Success)
