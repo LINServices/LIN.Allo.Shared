@@ -1,6 +1,6 @@
 ﻿
 
-<div @onclick="() =>{OnClick(Member); IsNew = false; StateHasChanged();}" class="flex py-3 px-5 select-none items-center @(IsSelect ? "bg-gray-200 dark:bg-gray-100/10" : "") fade-in transition-transform">
+<div @onclick="() =>{OnClick(Member); IsNew = false; StateHasChanged();}" class="flex py-3 px-5 select-none items-center @(IsSelect ? "bg-gray-200 dark:bg-gray-100/10" : "")  transition-colors duration-100 ease-in-out">
  
     <div class="flex w-full items-center">
 
@@ -11,10 +11,10 @@
         {
 
                 <div class="relative inline-block">
-                    <div class="inline-flex items-center justify-center w-10 h-10 border border-shark-100 rounded-full bg-zinc-100 p-2 font-bold text-zinc-600 leading-none dark:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200">
-                        <label class="w-max h-max text-center content-center mt-0.5 lg:mt-0">@(Global.Utilities.Strings.GetInitials(Member.Conversation.Name))</label>
+                    <div class="border-shark-100 inline-flex h-10 w-10 items-center justify-center rounded-full border bg-zinc-100 p-2 font-bold leading-none text-zinc-600 dark:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200">
+                        <label class="mt-0.5 h-max w-max content-center text-center lg:mt-0">@(Global.Utilities.Strings.GetInitials(Member.Conversation.Name))</label>
                     </div>
-                    <span class="absolute bottom-0 end-0 block h-2.5 w-2.5 rounded-full transform  ring-2 ring-white bg-green-500 text-[8px]">
+                    <span class="ring-2 text-[8px] absolute bottom-0 end-0 block h-2.5 w-2.5 transform rounded-full bg-green-500 ring-white">
                     </span>
                 </div>
 
@@ -25,8 +25,8 @@
         {
 
             <div class="relative inline-block">
-                <div class="inline-flex items-center justify-center w-10 h-10 border rounded-full bg-zinc-100 p-2.5 font-bold text-zinc-600 leading-none dark:border-zinc-600 dark:bg-zinc-900 ">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="fill-zinc-500 w-full h-full dark:fill-zinc-200" viewBox="0 0 16 16"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"></path></svg>
+                <div class="inline-flex h-10 w-10 items-center justify-center rounded-full border bg-zinc-100 p-2.5 font-bold leading-none text-zinc-600 dark:border-zinc-600 dark:bg-zinc-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-full w-full fill-zinc-500 dark:fill-zinc-200" viewBox="0 0 16 16"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"></path></svg>
 
                 </div>
             </div>
@@ -34,7 +34,7 @@
 
 
 
-        <div class="flex flex-col ml-3">
+        <div class="ml-3 flex flex-col">
 
             <label class="text-base font-bold text-gray-700 dark:text-gray-300">@(Member.Conversation.Name)</label>
 
@@ -58,7 +58,7 @@
 
                     }
 
-                    <label class="text-xs -mt-1 text-gray-500 dark:text-gray-500">@(final)</label>
+                    <label class="-mt-1 text-xs text-gray-500 dark:text-gray-500">@(final)</label>
 
                 </div>
 
@@ -73,8 +73,8 @@
     @if(calc != string.Empty)
     {
          <div class="flex w-full justify-end">
-        <span class=" text-gray-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-xl me-2 dark:text-gray-400 border-2 border-zinc-500 ">
-            <svg class="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+        <span class="border-2 me-2 inline-flex items-center rounded-xl border-zinc-500 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:text-gray-400">
+            <svg class="me-1.5 h-2.5 w-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
             </svg>
 
