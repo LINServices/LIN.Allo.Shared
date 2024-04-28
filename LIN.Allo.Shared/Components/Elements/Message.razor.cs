@@ -13,6 +13,13 @@ public partial class Message
     public MessageModel MessageModel { get; set; } = new();
 
 
+     /// <summary>
+    /// Modelo del mensaje
+    /// </summary>
+    [Parameter]
+    public bool ShowTittle { get; set; } = true;
+
+
 
     /// <summary>
     /// Obtiene si el mensaje no fue enviado por me
