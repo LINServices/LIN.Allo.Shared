@@ -39,10 +39,10 @@
         <div class="@(classes) max-w-[75%] select-none rounded-xl p-4">
 
             <div class="bg-red flex items-center justify-center">
-                <img class="mt-1 h-5 w-5" src="@(IsOther ? "./img/meet.png" : "./meet_white.png")"/>
+                <img class="mt-1 h-5 w-5" src="@(IsOther ? "./img/meet.png" : "./img/meet_white.png")"/>
             </div>
 
-            <a href="@MessageModel.Contenido" target="_blank" class="text-sm text-current-500 hover:text-current-600">Unirme</a>
+            <a href="@MessageModel.Contenido" target="_blank" class="text-sm @(IsOther ? "text-current-500 hover:text-current-600": "text-white hover:text-current-200")">Unirme</a>
 
         </div>
     }
