@@ -3,15 +3,15 @@
 
 @* drawer component *@
 <div id="drawerIG-@UniqueId" 
-     class="fixed top-0 right-0 px-1 pb-2 z-40 h-dvh max-h-dvh transition-transform translate-x-full min-w-80 w-80 backdrop-blur-md bg-white/50 dark:bg-zinc-800/70">
+     class="z-40 bg-white/50 fixed right-0 top-0 h-dvh max-h-dvh w-80 min-w-80 translate-x-full px-1 pb-2 backdrop-blur-md transition-transform dark:bg-zinc-800/70">
 
 
-    <div class="flex flex-col justify-between h-dvh p-4 ">
+    <div class="flex h-dvh flex-col justify-between p-4">
 
         @* Estado Creando. *@
         @if (ActualState == State.Creating)
         {
-            <div class="flex flex-col justify-center items-center h-full">
+            <div class="flex h-full flex-col items-center justify-center">
                 <CircleLoader />
                 <label class="text-gray-600">Creando</label>
             </div>
@@ -20,20 +20,20 @@
         // Estado correcto.
         else if (ActualState == State.Success)
         {
-            <div class="flex flex-col justify-center items-center h-full">
+            <div class="flex h-full flex-col items-center justify-center">
                 <img class="h-10 w-10" src="./success.png" />
-                <label class="text-gray-600 font-bold text-lg">Creado con éxito</label>
-                <label @onclick="Click" class="text-gray-600 text-sm -mt-1">Crear nueva <span class="text-green-500 hover:font-bold">Conversación</span></label>
+                <label class="text-lg font-bold text-gray-600">Creado con éxito</label>
+                <label @onclick="Click" class="-mt-1 text-sm text-gray-600">Crear nueva <span class="text-green-500 hover:font-bold">Conversación</span></label>
             </div>
         }
 
         // Estado fallido.
         else if (ActualState == State.Failure)
         {
-            <div class="flex flex-col justify-center items-center h-full">
+            <div class="flex h-full flex-col items-center justify-center">
                 <img class="h-10 w-10" src="./error.png" />
-                <label class="text-gray-600 font-bold text-lg">Error al crear</label>
-                <label @onclick="Click" class="text-gray-600 text-sm -mt-1">Intentar de nuevo crear una <span class="text-red-500 hover:font-bold">Conversación</span></label>
+                <label class="text-lg font-bold text-gray-600">Error al crear</label>
+                <label @onclick="Click" class="-mt-1 text-sm text-gray-600">Intentar de nuevo crear una <span class="text-red-500 hover:font-bold">Conversación</span></label>
             </div>
         }
 
@@ -45,13 +45,13 @@
             <div class="flex justify-between">
 
                 @* Titulo *@
-                <h5 id="drawer-label" class="inline-flex items-center justify-center text-base font-bold text-gray-500 top-2.5 dark:text-gray-400">
+                <h5 id="drawer-label" class="top-2.5 inline-flex items-center justify-center text-base font-bold text-gray-500 dark:text-zinc-300">
                     Nueva conversación
                 </h5>
 
                 @* Botón cerrar *@
-                <button id="close-drawerIG-@UniqueId" type="button" data-drawer-hide="drawer-form" aria-controls="drawer-form" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <button id="close-drawerIG-@UniqueId" type="button" data-drawer-hide="drawer-form" aria-controls="drawer-form" class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
+                    <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                     </svg>
                     <span class="sr-only">Close menu</span>
@@ -65,35 +65,39 @@
 
                 @* Nombre *@
                 <div class="relative mb-3">
-                    <div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
-                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                    <div class="pointer-events-none absolute inset-y-0 start-0 top-0 flex items-center ps-3.5">
+                        <svg class="h-4 w-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
                             <path d="M5 2a.5.5 0 0 1 .5-.5c.862 0 1.573.287 2.06.566.174.099.321.198.44.286.119-.088.266-.187.44-.286A4.17 4.17 0 0 1 10.5 1.5a.5.5 0 0 1 0 1c-.638 0-1.177.213-1.564.434a3.5 3.5 0 0 0-.436.294V7.5H9a.5.5 0 0 1 0 1h-.5v4.272c.1.08.248.187.436.294.387.221.926.434 1.564.434a.5.5 0 0 1 0 1 4.17 4.17 0 0 1-2.06-.566A5 5 0 0 1 8 13.65a5 5 0 0 1-.44.285 4.17 4.17 0 0 1-2.06.566.5.5 0 0 1 0-1c.638 0 1.177-.213 1.564-.434.188-.107.335-.214.436-.294V8.5H7a.5.5 0 0 1 0-1h.5V3.228a3.5 3.5 0 0 0-.436-.294A3.17 3.17 0 0 0 5.5 2.5.5.5 0 0 1 5 2m2.648 10.645" />
                         </svg>
                     </div>
-                    <input @bind="Name" type="text" id="zip-input" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-current-600 block w-full ps-10 p-2.5 focus:outline-none  dark:bg-shark-950 dark:border-zinc-700 dark:placeholder-gray-400 dark:text-white dark:focus:border-current-600" placeholder="Nombre la conversación" required>
+                    <input @bind="Name" type="text" autocomplete="off" required=""
+                           class="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 ps-10 text-gray-900 placeholder-gray-400 focus:ring-1 focus:border-current-500 focus:bg-white focus:outline-none focus:ring-current-500 dark:bg-zinc-900 dark:text-zinc-200 dark:border-zinc-700 sm:text-sm dark:focus:bg-zinc-900">
                 </div>
 
 
                 <div class="relative">
                     <div class="relative">
-                        <input @bind="Pattern" type="text" id="zip-input" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-current-600 block w-full p-2.5 focus:outline-none  dark:bg-shark-950 dark:border-zinc-700 dark:placeholder-gray-400 dark:text-white dark:focus:border-current-600" placeholder="Buscar usuarios" required>
+                        <input @bind="Pattern" type="text" autocomplete="off" required=""
+                               class="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:ring-1 focus:border-current-500 focus:bg-white focus:outline-none focus:ring-current-500 dark:bg-zinc-900 dark:text-zinc-200 dark:border-zinc-700 sm:text-sm dark:focus:bg-zinc-900">
 
-                        <button @onclick="Search" type="button" class="absolute inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-current-600 rounded-lg right-2 bottom-2 hover:bg-current-800 focus:ring-4 focus:outline-none focus:ring-current-300 dark:bg-current-600 dark:hover:bg-current-700 dark:focus:ring-current-800">
-                            <svg class="w-3 h-3 mr-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                            </svg>Buscar
+                        <button @onclick="Search" type="submit" class="absolute end-0 top-0 h-full rounded-e-lg border border-current-700 bg-current-700 p-2.5 text-sm font-medium text-white hover:bg-current-800 focus:ring-4 focus:outline-none focus:ring-current-300 dark:bg-current-600 dark:hover:bg-current-700 dark:focus:ring-current-800">
+                            <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                            <span class="sr-only">Search</span>
                         </button>
+
                     </div>
                 </div>
 
 
                 @* Imágenes *@
-                <div class="flex mb-4 -space-x-4 mt-2">
+                <div class="mb-4 mt-3 flex -space-x-4">
 
                     @if (SelectedItems.Count <= 0)
                     {
-                        <div class="flex rounded-lg justify-center items-center border-dashed border-2 border-gray-800 w-full py-7 dark:border-shark-300">
-                            <label class="text-gray-700 dark:text-shark-300">Sin integrantes</label>
+                        <div class="border-2 flex w-full items-center justify-center rounded-lg border-dashed border-zinc-600 py-7 dark:border-zinc-300">
+                            <label class="text-zinc-700 dark:text-zinc-300">Sin integrantes</label>
                         </div>
                     }
                     else
@@ -113,13 +117,13 @@
 
 
             @* Resultados de búsqueda *@
-            <div class="@(AreSearch ? "" : "opacity-0") h-full overflow-y-auto overflow-x-hidden">
+            <div class="h-full overflow-y-auto overflow-x-hidden @(AreSearch ? "" : "opacity-0")">
 
                 @* Esta cargando *@
                 @if (IsSearching)
                 {
-                    <div class="flex justify-center items-center">
-                        <BubbleLoader />
+                    <div class="flex items-center justify-center">
+                        <CircleLoader />
                     </div>
                 }
 
@@ -130,7 +134,7 @@
                     // No hay usuarios.
                     if ((MemberModels ?? new List<SessionModel<ProfileModel>>()).Count <= 0)
                     {
-                        <div class="flex rounded justify-center items-center border-dashed border-2 border-gray-800 w-full p-3">
+                        <div class="border-2 flex w-full items-center justify-center rounded border-dashed border-gray-800 p-3">
                             <label class="text-gray-700">No se encontraron usuarios</label>
                         </div>
                     }
@@ -155,7 +159,7 @@
 
             @* Botón crear *@
             <div>
-                <button @onclick="Crear" type="submit" class="text-white justify-center flex items-center bg-current-600 hover:bg-current-800 w-full focus:ring-4 focus:ring-current-300 font-medium rounded-xl text-sm px-5 py-2.5 mr-2 mb-2  focus:outline-none">
+                <button @onclick="Crear" type="submit" class="mb-2 mr-2 flex w-full items-center justify-center rounded-xl bg-current-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-current-800 focus:ring-4 focus:ring-current-300 focus:outline-none">
                     Crear
                 </button>
             </div>

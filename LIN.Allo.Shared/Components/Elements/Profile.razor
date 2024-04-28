@@ -2,31 +2,31 @@
 <div @onclick="() => Confirm(SessionModel.Profile.ID)" class="flex hover:bg-gray-100/25 rounded-lg w-full mt-2">
 
 
-    <div class="flex p-3 w-full items-center">
+    <div class="flex w-full items-center p-3">
 
 
         @* Imagen de perfil *@
         @if (SessionModel?.Account.Profile.Length <= 0)
         {
 
-            <div class="relative inline-block mr-2">
-                <div class="inline-flex items-center justify-center w-9 h-9 border border-shark-100 rounded-full bg-zinc-100 p-2 font-bold text-zinc-600 leading-none dark:border-shark-400 dark:bg-shark-900 dark:text-shark-200">
-                    <label class="w-max h-max text-center content-center mt-0.5 lg:mt-0">@(Global.Utilities.Strings.GetInitials(SessionModel.Profile.Alias))</label>
+            <div class="relative mr-2 inline-block">
+                <div class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-zinc-100 bg-zinc-100 p-2 font-bold leading-none text-zinc-600 dark:border-zinc-400 dark:bg-zinc-900 dark:text-zinc-200">
+                    <label class="mt-0.5 h-max w-max content-center text-center lg:mt-0">@(Global.Utilities.Strings.GetInitials(SessionModel.Profile.Alias))</label>
                 </div>
 
                 @if (isOnline != null && isOnline.IsOnline)
                 {
-                    <span class="absolute bottom-0 end-0 block h-2.5 w-2.5 rounded-full transform  ring-2 ring-white bg-green-500 text-[8px]">
+                    <span class="ring-2 text-[8px] absolute bottom-0 end-0 block h-2.5 w-2.5 transform rounded-full bg-green-500 ring-white">
                     </span>
                 }
                 else if (isOnline != null && isOnline.LastTime != default)
                 {
-                    <span class="absolute bottom-0 end-0 block h-2.5 w-2.5 rounded-full transform  ring-2 ring-white bg-orange-500 text-[8px]">
+                    <span class="ring-2 text-[8px] absolute bottom-0 end-0 block h-2.5 w-2.5 transform rounded-full bg-orange-500 ring-white">
                     </span>
                 }
                 else
                 {
-                    <span class="absolute bottom-0 end-0 block h-2.5 w-2.5 rounded-full transform  ring-2 ring-white bg-red-500 text-[8px]">
+                    <span class="ring-2 text-[8px] absolute bottom-0 end-0 block h-2.5 w-2.5 transform rounded-full bg-red-500 ring-white">
                     </span>
                 }
 
@@ -35,16 +35,16 @@
         }
         else
         {
-            <img class="w-9 h-9 mr-2 p-1 rounded-full ring-2 ring-gray-400" src="data:image/png;base64,@Img64" alt="Bordered avatar">
+            <img class="ring-2 mr-2 h-9 w-9 rounded-full p-1 ring-gray-400" src="data:image/png;base64,@Img64" alt="Bordered avatar">
         }
 
 
 
         <div class="flex flex-col">
 
-            <label class="text-sm font-bold">@SessionModel.Profile.Alias</label>
+            <label class="text-sm font-bold dark:text-zinc-200">@SessionModel.Profile.Alias</label>
 
-            <label class="text-xs text-gray-800">@@@SessionModel.Account.Identity.Unique</label>
+            <label class="text-xs text-gray-800 dark:text-zinc-300">@@@SessionModel.Account.Identity.Unique</label>
 
         </div>
 
@@ -53,8 +53,8 @@
     @if (State == 1)
     {
         <div @onclick="() => OnSelect(SessionModel)" class="flex justify-end items-center mr-3 hover:cursor-pointer">
-            <span class="inline-flex justify-center items-center bg-green-100 hover:bg-green-200 text-green-800 hover:text-green-950 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full w-28">
-                <span class="w-2 h-2 mr-1 bg-green-500 rounded-full"></span>
+            <span class="mr-2 inline-flex w-28 items-center justify-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 hover:bg-green-200 hover:text-green-950 dark:text-green-500 dark:bg-green-500/30">
+                <span class="mr-1 h-2 w-2 rounded-full bg-green-500"></span>
                 Agregar
             </span>
         </div>
@@ -62,8 +62,8 @@
     else if (State == 2)
     {
         <div @onclick="() => OnSelect(SessionModel)" class="flex justify-end items-center mr-3 hover:cursor-pointer">
-            <span class="inline-flex justify-center items-center bg-red-100 hover:bg-red-200 text-red-800 hover:text-red-950 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full w-28">
-                <span class="w-2 h-2 mr-1 bg-red-500 rounded-full"></span>
+            <span class="mr-2 inline-flex w-28 items-center justify-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800 hover:bg-red-200 hover:text-red-950 dark:bg-red-500/30">
+                <span class="mr-1 h-2 w-2 rounded-full bg-red-500"></span>
                 Remover
             </span>
         </div>

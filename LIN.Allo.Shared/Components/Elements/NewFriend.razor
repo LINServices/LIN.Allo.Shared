@@ -1,23 +1,23 @@
 ﻿
-<div class="flex hover:shadow-gray-400 bg-white rounded-lg w-full hover:ring-current-500 hover:ring-1 items-center dark:bg-zinc-900">
+<div class="flex w-full items-center rounded-lg bg-white hover:shadow-gray-400 hover:ring-current-500 hover:ring-1 dark:bg-zinc-900">
 
     @* Información *@
-    <div class="flex p-3 w-full items-center">
+    <div class="flex w-full items-center p-3">
 
         @* Imagen de perfil *@
         @if (LIN.Access.Communication.Session.Instance.Account.Profile.Length <= 0)
         {
-            <div class="relative inline-block mr-2">
-                <div class="inline-flex items-center justify-center w-9 h-9 border border-shark-100 rounded-full bg-zinc-100 p-2 font-bold text-zinc-600 leading-none dark:border-zinc-400 dark:bg-zinc-800 dark:text-zinc-200">
-                    <label class="w-max h-max text-center content-center mt-0.5 lg:mt-0">@(Global.Utilities.Strings.GetInitials(UserInformation?.Profile?.Alias))</label>
+            <div class="relative mr-2 inline-block">
+                <div class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-zinc-100 bg-zinc-100 p-2 font-bold leading-none text-zinc-600 dark:border-zinc-400 dark:bg-zinc-800 dark:text-zinc-200">
+                    <label class="mt-0.5 h-max w-max content-center text-center lg:mt-0">@(Global.Utilities.Strings.GetInitials(UserInformation?.Profile?.Alias))</label>
                 </div>
-                <span class="absolute bottom-0 end-0 block h-2.5 w-2.5 rounded-full transform  ring-2 ring-white bg-green-500 text-[8px]">
+                <span class="ring-2 text-[8px] absolute bottom-0 end-0 block h-2.5 w-2.5 transform rounded-full bg-green-500 ring-white">
                 </span>
             </div>
         }
         else
         {
-            <img class="w-9 h-9 mr-2 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-400" src="data:image/png;base64,@Img64" alt="Bordered avatar">
+            <img class="ring-2 mr-2 h-9 w-9 rounded-full p-1 ring-gray-300 dark:ring-gray-400" src="data:image/png;base64,@Img64" alt="Bordered avatar">
         }
 
 
@@ -26,7 +26,7 @@
         @* Usuario y nombre *@
         <div class="flex flex-col">
             <label class="text-sm font-bold dark:text-white">@UserInformation.Profile.Alias</label>
-            <label class="text-xs -mt-1 dark:text-gray-300">@@@UserInformation.Account.Identity.Unique</label>
+            <label class="-mt-1 text-xs dark:text-gray-300">@@@UserInformation.Account.Identity.Unique</label>
         </div>
 
     </div>
@@ -38,8 +38,8 @@
         @* Cargando *@
         @if (Section == Sections.Loading)
         {
-            <div class="flex justify-center items-center">
-                <div class="animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent text-current-600 rounded-full" role="status" aria-label="loading">
+            <div class="flex items-center justify-center">
+                <div class="border-[3px] inline-block h-4 w-4 animate-spin rounded-full border-current border-t-transparent text-current-600" role="status" aria-label="loading">
                     <span class="sr-only">Loading...</span>
                 </div>
             </div>
@@ -60,8 +60,8 @@
         @* Botón de agregar *@
         else
         {
-            <button @onclick="Find" type="button" class="flex justify-center items-center text-white bg-current-700 hover:bg-current-800 focus:ring-4 focus:outline-none focus:ring-current-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center h-8 w-8 dark:focus:ring-current-500">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4" viewBox="0 0 16 16">
+            <button @onclick="Find" type="button" class="flex inline-flex h-8 w-8 items-center items-center justify-center rounded-full bg-current-700 p-2.5 text-center text-sm font-medium text-white hover:bg-current-800 focus:ring-4 focus:outline-none focus:ring-current-300 dark:focus:ring-current-500">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-4 w-4" viewBox="0 0 16 16">
                     <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
                 </svg>
             </button>

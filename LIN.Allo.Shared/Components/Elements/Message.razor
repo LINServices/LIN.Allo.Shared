@@ -7,7 +7,7 @@
 
 
     @{
-        string classes = (MessageModel.IsLocal ? "bg-gray-300 text-black" : (!IsOther ? "bg-current-500 text-white" : "bg-[#EAE8ED] dark:bg-[#292929] dark:text-gray-300")) + " transition-colors duration-400 ease-in-out";
+        string classes = (MessageModel.IsLocal ? "bg-gray-200 text-black" : (!IsOther ? "bg-current-500 text-white" : "bg-white dark:bg-[#292929] text-primaryDark dark:text-white")) + " transition-colors duration-400 ease-in-out";
     }
 
     @if (MessageType == 0)
