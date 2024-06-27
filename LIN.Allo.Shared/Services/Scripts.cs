@@ -99,7 +99,7 @@ public class Scripts
             });
 
             // Enviar el mensaje al servicio.
-            await RealTime.Hub!.SendMessage(conversation.Conversation.ID, content?.Objeto.Value.ToString() ?? "", guid);
+            await RealTime.Hub!.SendMessage(conversation.Conversation.ID, content?.Objeto.Value.ToString() ?? "", guid, LIN.Access.Communication.Session.Instance.Token);
 
         })
         {

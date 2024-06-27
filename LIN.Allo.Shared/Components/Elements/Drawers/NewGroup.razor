@@ -146,7 +146,7 @@
 
                             @foreach (var e in MemberModels ?? new List<SessionModel<ProfileModel>>())
                             {
-                                if (!SelectedItems.Where(T => T.Profile.ID == e.Profile.ID).Any() && Access.Communication.Session.Instance.Profile.AccountID != e.Account.Id)
+                                if (!SelectedItems.Where(T => T.Profile.ID == e.Profile.ID).Any() && Access.Communication.Session.Instance.Profile.IdentityId != e.Account.IdentityId)
                                 {
                                     <Profile OnSelect="OnSelect" SessionModel="@e" @ref=MemberControl />
                                 }

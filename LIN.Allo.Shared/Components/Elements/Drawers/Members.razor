@@ -96,7 +96,7 @@
                     var x = !MemberModels.Where(T => T.Account.Id == e.Account.Id).Any();
                     var find = NewMembers.Where(t => t.Profile.ID == e.Profile.ID).Any();
 
-                    if (!find && x && Access.Communication.Session.Instance.Profile.AccountID != e.Account.Id)
+                    if (!find && x && Access.Communication.Session.Instance.Profile.IdentityId != e.Account.IdentityId)
                     {
 
                         <Profile SessionModel="@e" @ref=SearchResultControl OnSelect="OnSelect" />
