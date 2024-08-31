@@ -1,7 +1,7 @@
 ﻿.loader {
     display: block;
     --height-of-loader: 4px;
-    --loader-color: #6366f1;
+    --loader-color: #5e7ed3;
     width: 130px;
     height: var(--height-of-loader);
     border-radius: 30px;
