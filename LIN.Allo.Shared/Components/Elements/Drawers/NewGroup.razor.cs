@@ -1,6 +1,4 @@
-﻿
-
-namespace LIN.Allo.Shared.Components.Elements.Drawers;
+﻿namespace LIN.Allo.Shared.Components.Elements.Drawers;
 
 public partial class NewGroup
 {
@@ -12,19 +10,16 @@ public partial class NewGroup
     public Action? OnSuccess { get; set; }
 
 
-
     /// <summary>
     /// Id único del elemento.
     /// </summary>
     private string UniqueId { get; init; } = Guid.NewGuid().ToString();
 
 
-
     /// <summary>
     /// Estado actual.
     /// </summary>
     private State ActualState = State.Modeling;
-
 
 
     /// <summary>
@@ -39,12 +34,10 @@ public partial class NewGroup
     }
 
 
-
     /// <summary>
     /// Estado (Buscando).
     /// </summary>
     private bool IsSearching { get; set; } = false;
-
 
 
     /// <summary>
@@ -53,12 +46,10 @@ public partial class NewGroup
     private bool AreSearch { get; set; } = false;
 
 
-
     /// <summary>
     /// Items seleccionados.
     /// </summary>
     private List<SessionModel<ProfileModel>> SelectedItems { get; set; } = new();
-
 
 
     /// <summary>
@@ -67,12 +58,10 @@ public partial class NewGroup
     private List<SessionModel<ProfileModel>> MemberModels { get; set; } = new();
 
 
-
     /// <summary>
     /// Lista de controles de integrantes.
     /// </summary>
     private List<Profile> MemberControls { get; set; } = new();
-
 
 
     /// <summary>
@@ -84,12 +73,10 @@ public partial class NewGroup
     }
 
 
-
     /// <summary>
     /// Patron de búsqueda.
     /// </summary>
     private string pattern = "";
-
 
 
     /// <summary>
@@ -107,12 +94,10 @@ public partial class NewGroup
     }
 
 
-
     /// <summary>
     /// Name de la conversación.
     /// </summary>
     private string Name { get; set; } = string.Empty;
-
 
 
     /// <summary>
@@ -120,10 +105,19 @@ public partial class NewGroup
     /// </summary>
     public async void Show()
     {
-        await js.InvokeAsync<object>("ShowDrawer", $"drawerIG-{UniqueId}", $"close-drawerIG-{UniqueId}");
+        await js.InvokeAsync<object>("ShowDrawer", $"drawerIG-{UniqueId}", $"close-drawerIG-{UniqueId}", $"close-2-drawerIG-{UniqueId}");
         StateHasChanged();
     }
 
+
+    /// <summary>
+    /// Cerrar el cajon.
+    /// </summary>
+    public async void Hide()
+    {
+        await js.InvokeAsync<object>("ClickElement", $"close-2-drawerIG-{UniqueId}");
+        StateHasChanged();
+    }
 
 
     /// <summary>
@@ -143,7 +137,6 @@ public partial class NewGroup
     }
 
 
-
     /// <summary>
     /// Al eliminar.
     /// </summary>
@@ -153,7 +146,6 @@ public partial class NewGroup
         SelectedItems = SelectedItems.Where(T => T.Account.Id != model.Account.Id).ToList();
         StateHasChanged();
     }
-
 
 
     /// <summary>
@@ -170,7 +162,6 @@ public partial class NewGroup
         ActualState = State.Modeling;
         StateHasChanged();
     }
-
 
 
     /// <summary>
@@ -196,7 +187,6 @@ public partial class NewGroup
         MemberModels = result.Models;
         StateHasChanged();
     }
-
 
 
     /// <summary>
@@ -235,7 +225,7 @@ public partial class NewGroup
         if (res.Response == Responses.Success)
         {
             ActualState = State.Success;
-            StateHasChanged();
+            //StateHasChanged();
             OnSuccess();
             return;
         }
@@ -243,9 +233,5 @@ public partial class NewGroup
         ActualState = State.Failure;
         StateHasChanged();
     }
-
-
-
-
 
 }

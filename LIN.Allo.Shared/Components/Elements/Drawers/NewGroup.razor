@@ -1,12 +1,15 @@
 ﻿@inject IJSRuntime js
 
-
 @* drawer component *@
 <div id="drawerIG-@UniqueId" 
      class="z-40 bg-white/50 fixed right-0 top-0 h-dvh max-h-dvh w-80 min-w-80 translate-x-full px-1 pb-2 backdrop-blur-md transition-transform dark:bg-zinc-800/70">
 
 
     <div class="flex h-dvh flex-col justify-between p-4">
+
+        @* Botón oculto *@
+        <button id="close-2-drawerIG-@UniqueId" type="button" data-drawer-hide="drawer-form" aria-controls="drawer-form" class="invisible h-0 w-0">
+        </button>
 
         @* Estado Creando. *@
         @if (ActualState == State.Creating)
@@ -108,10 +111,7 @@
                         }
                     }
 
-
                 </div>
-
-               
 
             </div>
 
