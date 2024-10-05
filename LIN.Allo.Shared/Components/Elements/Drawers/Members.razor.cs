@@ -69,7 +69,7 @@ public partial class Members
     /// </summary>
     public async void Show()
     {
-        await jsRuntime.InvokeVoidAsync("ShowDrawer", $"drawer-{UniqueId}", $"close-drawer-{UniqueId}");
+        await jsRuntime.InvokeVoidAsync("showDrawer", $"drawer-{UniqueId}", DotNetObjectReference.Create(this), $"close-drawer-{UniqueId}");
         StateHasChanged();
     }
 

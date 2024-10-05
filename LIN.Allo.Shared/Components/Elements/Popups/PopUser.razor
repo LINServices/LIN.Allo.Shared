@@ -20,7 +20,7 @@
 
     protected override void OnAfterRender(bool firstRender)
     {
-        js.InvokeVoidAsync("ShopPop", $"popover-user-profile-{Modelo.Account.Id}", $"img-prof-{Modelo.Account.Id}");
+        js.InvokeVoidAsync("showPopover", $"popover-user-profile-{Modelo.Account.Id}", DotNetObjectReference.Create(this), $"img-prof-{Modelo.Account.Id}");
     }
 
     void Send()

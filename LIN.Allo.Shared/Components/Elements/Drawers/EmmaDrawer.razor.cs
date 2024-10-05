@@ -27,7 +27,7 @@ public partial class EmmaDrawer
     public async void Show()
     {
 
-        await js.InvokeAsync<object>("ShowDrawer", $"drawerEmma-{UniqueId}", $"close-drawerEmma-{UniqueId}");
+        await js.InvokeAsync<object>("showDrawer", $"drawerEmma-{UniqueId}", DotNetObjectReference.Create(this), $"close-drawerEmma-{UniqueId}");
         StateHasChanged();
     }
 

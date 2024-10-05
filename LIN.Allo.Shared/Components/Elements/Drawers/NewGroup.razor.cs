@@ -105,7 +105,7 @@ public partial class NewGroup
     /// </summary>
     public async void Show()
     {
-        await js.InvokeAsync<object>("ShowDrawer", $"drawerIG-{UniqueId}", $"close-drawerIG-{UniqueId}", $"close-2-drawerIG-{UniqueId}");
+        await js.InvokeAsync<object>("showDrawer", $"drawerIG-{UniqueId}", DotNetObjectReference.Create(this), $"close-drawerIG-{UniqueId}", $"close-2-drawerIG-{UniqueId}");
         StateHasChanged();
     }
 
@@ -115,7 +115,7 @@ public partial class NewGroup
     /// </summary>
     public async void Hide()
     {
-        await js.InvokeAsync<object>("ClickElement", $"close-2-drawerIG-{UniqueId}");
+        await js.InvokeAsync<object>("forceClick", $"close-2-drawerIG-{UniqueId}");
         StateHasChanged();
     }
 
