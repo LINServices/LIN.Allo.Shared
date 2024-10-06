@@ -309,7 +309,7 @@ public partial class Members
 
         if (ChatPage.ChatViewer.Id == ConversationContext.ID && profile == Session.Instance.Profile.ID)
         {
-            await jsRuntime.InvokeVoidAsync("ForceClick", $"close-drawer-{UniqueId}");
+            await jsRuntime.InvokeVoidAsync("forceClick", $"close-drawer-{UniqueId}");
             ConversationsObserver.Remove(ConversationContext.ID);
             ChatPage.ChatViewer.Go(0);
         }
