@@ -12,6 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="LIN.Access.Auth" Version="1.0.0" />
+    <PackageReference Include="LIN.Access.Communication" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8" />
     <PackageReference Include="SILF.Script" Version="1.0.0" />
   </ItemGroup>
@@ -21,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\AccesoAPI\LIN.Access.Communication\LIN.Access.Communication.csproj" />
     <ProjectReference Include="..\..\LIN.Emma.UI\LIN.Emma.UI\LIN.Emma.UI.csproj" />
   </ItemGroup>
 
