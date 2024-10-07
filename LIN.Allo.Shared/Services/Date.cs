@@ -1,6 +1,5 @@
 ﻿namespace LIN.Allo.Shared.Services;
 
-
 internal class Date
 {
     public static string CalcTime(DateTime? fecha)
@@ -8,7 +7,6 @@ internal class Date
 
         if (fecha == null)
             return "";
-
 
         DateTime ahora = DateTime.Now;
         TimeSpan diferencia = ahora - fecha.Value;

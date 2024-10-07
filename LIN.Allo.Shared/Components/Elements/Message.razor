@@ -1,13 +1,9 @@
-﻿
-@if (ShowTittle)
+﻿@if (ShowTittle)
 {
-    
-<label class="text-gray-500 hover:text-current-500 @(IsOther ? "" : "flex self-center justify-end mr-2")" style="font-size: 10px">@(!IsOther ? "" : MessageModel.Remitente.Alias + " • ")@(MessageModel.Time.ToString("HH:mm"))</label>
-
+    <label class="text-gray-500 hover:text-current-500 @(IsOther ? "" : "flex self-center justify-end mr-2")" style="font-size: 10px">@(!IsOther ? "" : MessageModel.Remitente.Alias + " • ")@(MessageModel.Time.ToString("HH:mm"))</label>
 }
 
 <div class="mb-2 flex items-center @(IsOther ? "" : "justify-end")">
-
 
     @{
         string classes = (MessageModel.IsLocal ? "bg-gray-200 text-black" : (!IsOther ? "bg-current-500 text-white" : "bg-white dark:bg-[#292929] text-primaryDark dark:text-white")) + " transition-colors duration-400 ease-in-out";
@@ -17,21 +13,18 @@
     {
         <div class="@(classes) max-w-[75%] rounded-xl px-4 py-2.5">
             <p class="flex items-center gap-1 text-sm">
-                
-            @foreach (var pair in SepararCadenas())
+
+                @foreach (var pair in SepararCadenas())
                 {
 
                     if (pair.StartsWith("@"))
-                   {
+                    {
                         <span class="rounded-lg p-0.5 px-2 text-sm @(pair.StartsWith("@") && IsOther ? "bg-zinc-100 dark:bg-zinc-900/50" : "bg-current-400")">@pair</span>
                     }
                     else
                     {
                         <span class="">@pair</span>
                     }
-
-
-                    
                 }
             </p>
         </div>
@@ -42,7 +35,7 @@
         <div class="@(classes) max-w-[75%] select-none rounded-xl p-4">
 
             <div class="bg-red flex items-center justify-center">
-                <img class="mt-1 h-5 w-5" src="@(IsOther ? "./img/meet.png" : "./img/meet_white.png")"/>
+                <img class="mt-1 h-5 w-5" src="@(IsOther ? "./img/meet.png" : "./img/meet_white.png")" />
             </div>
 
             <a href="@MessageModel.Contenido" target="_blank" class="text-sm @(IsOther ? "text-current-500 hover:text-current-600": "text-white hover:text-current-200")">Unirme</a>
@@ -58,6 +51,5 @@
             </p>
         </div>
     }
-
 
 </div>
