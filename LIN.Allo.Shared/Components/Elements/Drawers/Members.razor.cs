@@ -91,7 +91,7 @@ public partial class Members
 
         ConversationContext = new()
         {
-            ID = id
+            Id = id
         };
 
         // Si no existe en el cache.
@@ -217,7 +217,7 @@ public partial class Members
         MessageLittle = ("text-blue-500", "Espera...");
         StateHasChanged();
 
-        var response = await LIN.Access.Communication.Controllers.Conversations.UpdateName(ConversationContext.ID, NewName, LIN.Access.Communication.Session.Instance.Token);
+        var response = await LIN.Access.Communication.Controllers.Conversations.UpdateName(ConversationContext.Id, NewName, LIN.Access.Communication.Session.Instance.Token);
 
         if (response.Response != Responses.Success)
         {
@@ -226,7 +226,7 @@ public partial class Members
         else
         {
             MessageLittle = ("text-green-500", "");
-            ConversationsObserver.IsUpdate(ConversationContext.ID, NewName);
+            ConversationsObserver.IsUpdate(ConversationContext.Id, NewName);
 
         }
 
@@ -279,14 +279,14 @@ public partial class Members
         var token = Session.Instance.Token;
         foreach (var x in NewMembers)
         {
-            tasks.Add(Access.Communication.Controllers.Members.Insert(ConversationContext.ID, x.Profile.ID, token));
+            tasks.Add(Access.Communication.Controllers.Members.Insert(ConversationContext.Id, x.Profile.Id, token));
         }
 
         await Task.WhenAll(tasks);
 
         NewMembers = [];
         IsShowAdd = false;
-        await LoadData(ConversationContext.ID, true);
+        await LoadData(ConversationContext.Id, true);
 
         StateHasChanged();
 
@@ -297,24 +297,24 @@ public partial class Members
     async void Remove(int profile)
     {
 
-        var remove = await Access.Communication.Controllers.Members.Remove(ConversationContext.ID, profile, Session.Instance.Token);
+        var remove = await Access.Communication.Controllers.Members.Remove(ConversationContext.Id, profile, Session.Instance.Token);
 
         try
         {
-            Cache.Where(t => t.Item1 == ConversationContext.ID).FirstOrDefault().Item2.RemoveAll(t => t.Profile.Profile.ID == profile);
+            Cache.Where(t => t.Item1 == ConversationContext.Id).FirstOrDefault().Item2.RemoveAll(t => t.Profile.Profile.Id == profile);
         }
         catch
         {
         }
 
-        if (ChatPage.ChatViewer.Id == ConversationContext.ID && profile == Session.Instance.Profile.ID)
+        if (ChatPage.ChatViewer.Id == ConversationContext.Id && profile == Session.Instance.Profile.Id)
         {
             await jsRuntime.InvokeVoidAsync("forceClick", $"close-drawer-{UniqueId}");
-            ConversationsObserver.Remove(ConversationContext.ID);
+            ConversationsObserver.Remove(ConversationContext.Id);
             ChatPage.ChatViewer.Go(0);
         }
 
-        await LoadData(ConversationContext.ID);
+        await LoadData(ConversationContext.Id);
         StateHasChanged();
     }
 

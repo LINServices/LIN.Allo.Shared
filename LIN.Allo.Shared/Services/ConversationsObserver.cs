@@ -174,14 +174,14 @@ public static class ConversationsObserver
             return;
 
 
-        var local = Data.Where(t => t.Item1 == conversation.ID).FirstOrDefault();
+        var local = Data.Where(t => t.Item1 == conversation.Id).FirstOrDefault();
 
 
         if (local.Item2 == null)
         {
             conversation.Mensajes = null;
 
-            Data.Add((conversation.ID, new()
+            Data.Add((conversation.Id, new()
             {
                 Conversation = conversation,
                 Messages = null!

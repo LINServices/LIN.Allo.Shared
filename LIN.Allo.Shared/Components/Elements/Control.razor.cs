@@ -103,7 +103,7 @@ public partial class Control : IConversationViewer, IDisposable
     protected override void OnParametersSet()
     {
         ConversationsObserver.UnSuscribe(this);
-        ConversationsObserver.Suscribe(Member.Conversation.ID, this);
+        ConversationsObserver.Suscribe(Member.Conversation.Id, this);
         StateHasChanged();
     }
 

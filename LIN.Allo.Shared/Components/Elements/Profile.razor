@@ -1,9 +1,6 @@
-﻿
-<div @onclick="() => Confirm(SessionModel.Profile.ID)" class="flex hover:bg-gray-100/25 rounded-lg w-full mt-2">
-
+﻿<div @onclick="() => Confirm(SessionModel.Profile.Id)" class="flex hover:bg-gray-100/25 rounded-lg w-full mt-2">
 
     <div class="flex w-full items-center p-3">
-
 
         @* Imagen de perfil *@
         @if (SessionModel?.Account.Profile.Length <= 0)
@@ -16,17 +13,17 @@
 
                 @if (isOnline != null && isOnline.IsOnline)
                 {
-                    <span class="ring-2 text-[8px] absolute bottom-0 end-0 block h-2.5 w-2.5 transform rounded-full bg-green-500 ring-white">
+                    <span class="ring-2 absolute bottom-0 end-0 block h-2.5 w-2.5 transform rounded-full bg-green-500 text-[8px] ring-white">
                     </span>
                 }
                 else if (isOnline != null && isOnline.LastTime != default)
                 {
-                    <span class="ring-2 text-[8px] absolute bottom-0 end-0 block h-2.5 w-2.5 transform rounded-full bg-orange-500 ring-white">
+                    <span class="ring-2 absolute bottom-0 end-0 block h-2.5 w-2.5 transform rounded-full bg-orange-500 text-[8px] ring-white">
                     </span>
                 }
                 else
                 {
-                    <span class="ring-2 text-[8px] absolute bottom-0 end-0 block h-2.5 w-2.5 transform rounded-full bg-red-500 ring-white">
+                    <span class="ring-2 absolute bottom-0 end-0 block h-2.5 w-2.5 transform rounded-full bg-red-500 text-[8px] ring-white">
                     </span>
                 }
 

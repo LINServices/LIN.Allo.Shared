@@ -1,4 +1,5 @@
 ﻿using SILF.Script;
+using SILF.Script.DotnetRun.Interop;
 using SILF.Script.Elements;
 using SILF.Script.Elements.Functions;
 using SILF.Script.Interfaces;
@@ -51,66 +52,6 @@ public class Scripts
     public static void Build()
     {
 
-        // Acción.
-        SILFFunction actionMessage =
-        new(async (param) =>
-        {
-
-            // Propiedades.
-            var id = param.Where(T => T.Name == "id").FirstOrDefault();
-            var content = param.Where(T => T.Name == "contenido").FirstOrDefault();
-
-            // Obtener la conversación.
-            _ = int.TryParse(id?.Objeto.Value.ToString(), out int idInt);
-
-            // Obtener el observador.
-
-            /* Cambio no fusionado mediante combinación del proyecto 'LIN.Allo.App (net8.0-windows10.0.19041.0)'
-            Antes:
-                        var conversation = Components.ConversationsObserver.Get(idInt);
-            Después:
-                        var conversation = ConversationsObserver.Get(idInt);
-            */
-            var conversation = ConversationsObserver.Get(idInt);
-
-            // No existe.
-            if (conversation == null)
-                return;
-
-            // Generar guid.
-            string guid = Guid.NewGuid().ToString();
-
-            // Publicar el mensaje en local.
-
-            /* Cambio no fusionado mediante combinación del proyecto 'LIN.Allo.App (net8.0-windows10.0.19041.0)'
-            Antes:
-                        Components.ConversationsObserver.PushMessage(conversation.Conversation.ID, new()
-            Después:
-                        ConversationsObserver.PushMessage(conversation.Conversation.ID, new()
-            */
-            ConversationsObserver.PushMessage(conversation.Conversation.ID, new()
-            {
-                Contenido = content?.Objeto.Value.ToString(),
-                Time = DateTime.Now,
-                Guid = guid,
-                IsLocal = true,
-                Conversacion = conversation.Conversation,
-                Remitente = Access.Communication.Session.Instance.Profile
-            });
-
-            // Enviar el mensaje al servicio.
-            await RealTime.Hub!.SendMessage(conversation.Conversation.ID, content?.Objeto.Value.ToString() ?? "", guid, LIN.Access.Communication.Session.Instance.Token);
-
-        })
-        {
-            Name = "mensaje",
-            Parameters =
-            [
-                new Parameter("id", new("number")),
-                new Parameter("contenido", new("string"))
-            ]
-        };
-
 
         // Acción.
         SILFFunction actionSelect =
@@ -136,10 +77,51 @@ public class Scripts
 
 
 
-        // Agregar.
-        Actions.AddRange([actionMessage, actionSelect]);
+        //// Agregar.
+        //Actions.AddRange([actionMessage, actionSelect]);
+
+        //Actions.Add(Mensaje);
 
     }
+
+
+
+
+
+    [SILFFunctionName("mensaje")]
+    public async Task Mensaje(decimal id, string content)
+    {
+
+        var conversation = ConversationsObserver.Get((int)id);
+
+        // No existe.
+        if (conversation == null)
+            return;
+
+        // Generar guid.
+        string guid = Guid.NewGuid().ToString();
+
+        ConversationsObserver.PushMessage(conversation.Conversation.Id, new()
+        {
+            Contenido = content,
+            Time = DateTime.Now,
+            Guid = guid,
+            IsLocal = true,
+            Conversacion = conversation.Conversation,
+            Remitente = Access.Communication.Session.Instance.Profile
+        });
+
+        // Enviar el mensaje al servicio.
+        await RealTime.Hub!.SendMessage(conversation.Conversation.Id, content ?? string.Empty, guid, Access.Communication.Session.Instance.Token);
+
+    }
+
+
+
+
+
+
+
 
 
 }

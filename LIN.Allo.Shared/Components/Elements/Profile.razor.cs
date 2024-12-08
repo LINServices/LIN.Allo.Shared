@@ -46,7 +46,7 @@ public partial class Profile
     {
         // Solicitud.
         var response = await Access.Communication.Controllers.Members.IsOnline(id, LIN.Access.Communication.Session.Instance.Token);
-        
+
         isOnline = response.Model;
         StateHasChanged();
     }

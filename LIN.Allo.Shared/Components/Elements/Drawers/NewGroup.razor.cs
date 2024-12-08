@@ -199,13 +199,13 @@ public partial class NewGroup
 
         var modelo = new ConversationModel()
         {
-            ID = 0,
+            Id = 0,
             Members = SelectedItems.Select(T => new MemberChatModel()
             {
                 Rol = Types.Communication.Enumerations.MemberRoles.None,
                 Profile = new()
                 {
-                    ID = T.Profile.ID
+                    Id = T.Profile.Id
                 }
             }).ToList(),
             Name = Name,
@@ -216,7 +216,7 @@ public partial class NewGroup
         {
             Profile = new()
             {
-                ID = Access.Communication.Session.Instance.Profile.ID
+                Id = Access.Communication.Session.Instance.Profile.Id
             },
             Rol = Types.Communication.Enumerations.MemberRoles.Admin
         });

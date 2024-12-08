@@ -41,6 +41,7 @@ public partial class EmmaDrawer
         if (firstRender)
         {
             LIN.Emma.UI.Functions.LoadActions(Scripts.Actions);
+
             DocEmma.OnPromptRequire += DocEmma_OnPromptRequire;
         }
 
@@ -51,7 +52,7 @@ public partial class EmmaDrawer
     {
 
         if (DocEmma != null)
-            DocEmma.ResponseIA = Access.Communication.Controllers.Messages.ToEmma(e, Access.Communication.Session.Instance.AccountToken);
+            DocEmma.ResponseIA = Access.Communication.Controllers.Emma.ToEmma(e, Access.Communication.Session.Instance.AccountToken);
     }
 
 

@@ -17,7 +17,7 @@ public partial class NewFriend
     /// Acción a realizar cuando se haga click.
     /// </summary>
     [Parameter]
-    public Action<SessionModel<ProfileModel>> OnSelect { get; set; } = (e) =>{ };
+    public Action<SessionModel<ProfileModel>> OnSelect { get; set; } = (e) => { };
 
 
 
@@ -54,7 +54,7 @@ public partial class NewFriend
         StateHasChanged();
 
         // Obtiene la información de la conversación.
-        var conversation = await Access.Communication.Controllers.Members.Find(UserInformation.Profile.ID, Access.Communication.Session.Instance.Token);
+        var conversation = await Access.Communication.Controllers.Members.Find(UserInformation.Profile.Id, Access.Communication.Session.Instance.Token);
 
         // Error.
         if (conversation.Response != Responses.Success)
@@ -72,7 +72,7 @@ public partial class NewFriend
         {
             // Seleccionar la conversación.
             ChatPage.ChatViewer.IsSearching = false;
-            ChatPage.ChatViewer.Go(localConversation.Conversation.ID);
+            ChatPage.ChatViewer.Go(localConversation.Conversation.Id);
             return;
         }
 
@@ -94,7 +94,7 @@ public partial class NewFriend
         ChatPage.ChatViewer.Suscribe(apiConversation.Model.Conversation);
 
         ChatPage.ChatViewer.IsSearching = false;
-        ChatPage.ChatViewer.Go(apiConversation.Model.Conversation.ID);
+        ChatPage.ChatViewer.Go(apiConversation.Model.Conversation.Id);
 
     }
 

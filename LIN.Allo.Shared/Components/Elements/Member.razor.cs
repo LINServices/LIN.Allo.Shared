@@ -8,7 +8,7 @@ public partial class Member
     private static List<(int, IsOnlineResult, DateTime)> Cache { get; set; } = [];
 
 
-    private int Id => (e?.Profile.Profile.ID) ?? 0;
+    private int Id => (e?.Profile.Profile.Id) ?? 0;
 
 
 

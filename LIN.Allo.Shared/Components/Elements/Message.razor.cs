@@ -13,7 +13,7 @@ public partial class Message
     public MessageModel MessageModel { get; set; } = new();
 
 
-     /// <summary>
+    /// <summary>
     /// Modelo del mensaje
     /// </summary>
     [Parameter]
@@ -24,7 +24,7 @@ public partial class Message
     /// <summary>
     /// Obtiene si el mensaje no fue enviado por me
     /// </summary>
-    public bool IsOther => MessageModel.Remitente.ID != Access.Communication.Session.Instance.Profile.ID;
+    public bool IsOther => MessageModel.Remitente.Id != Access.Communication.Session.Instance.Profile.Id;
 
 
 
