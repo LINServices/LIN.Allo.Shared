@@ -1,4 +1,5 @@
 ﻿using SILF.Script;
+using SILF.Script.DotnetRun;
 using SILF.Script.DotnetRun.Interop;
 using SILF.Script.Elements;
 using SILF.Script.Elements.Functions;
@@ -42,9 +43,12 @@ public class Scripts
     /// <summary>
     /// Funciones.
     /// </summary>
-    public static List<IFunction> Actions { get; set; } = new();
+    public static List<IFunction> Actions { get; set; } = [];
+    public static List<Delegate> Delegates { get; set; } = [];
 
 
+
+   
 
     /// <summary>
     /// Construye las funciones.
@@ -75,6 +79,7 @@ public class Scripts
             ]
         };
 
+        Delegates.Add(Mensaje);
 
 
         //// Agregar.
@@ -89,7 +94,7 @@ public class Scripts
 
 
     [SILFFunctionName("mensaje")]
-    public async Task Mensaje(decimal id, string content)
+    public static async void Mensaje(decimal id, string content)
     {
 
         var conversation = ConversationsObserver.Get((int)id);
