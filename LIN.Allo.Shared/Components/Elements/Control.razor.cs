@@ -77,7 +77,7 @@ public partial class Control : IConversationViewer, IDisposable
 
         if (profile != null && profile.Profile.Length > 0)
         {
-            final = $"data:image/png;base64,{Convert.ToBase64String(profile.Profile)}";
+            final = $"{profile.Profile}";
         }
         else
         {

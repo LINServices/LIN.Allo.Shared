@@ -30,14 +30,6 @@ public partial class Profile
     /// </summary>
     public IsOnlineResult? isOnline = null;
 
-
-    /// <summary>
-    /// Imagen del perfil.
-    /// </summary>
-    private string Img64 => Convert.ToBase64String(SessionModel?.Account.Profile ?? []);
-
-
-
     /// <summary>
     /// Obtener el estado.
     /// </summary>

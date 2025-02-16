@@ -27,9 +27,6 @@ public partial class Member
     public IsOnlineResult? isOnline = null;
 
 
-    private string Img64 => Convert.ToBase64String(e.Account.Profile);
-
-
 
 
     protected override void OnAfterRender(bool firstRender)

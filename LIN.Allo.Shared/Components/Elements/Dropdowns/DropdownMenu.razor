@@ -3,12 +3,6 @@
 @code{
 
 
-    /// <summary>
-    /// Imagen de perfil en base64.
-    /// </summary>
-    private string Img64 => Convert.ToBase64String(Access.Communication.Session.Instance.Account.Profile);
-
-
 
     private void Close() 
     {
@@ -25,7 +19,7 @@
 
         <button type="button" class="flex mr-3 mt-1 text-sm rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300" id="user-menu-button">
             <span class="sr-only">Open</span>
-            <img class="w-12 h-12 p-1 rounded-full ring-2 ring-gray-300" src="data:image/png;base64,@Img64">
+            <img class="w-12 h-12 p-1 rounded-full ring-2 ring-gray-300">
         </button>
 
 

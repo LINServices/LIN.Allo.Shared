@@ -20,14 +20,6 @@ public partial class NewFriend
     public Action<SessionModel<ProfileModel>> OnSelect { get; set; } = (e) => { };
 
 
-
-    /// <summary>
-    /// Obtiene la imagen en Base64.
-    /// </summary>
-    private string Img64 => Convert.ToBase64String(UserInformation?.Account.Profile ?? []);
-
-
-
     /// <summary>
     /// Si se cargando información.
     /// </summary>

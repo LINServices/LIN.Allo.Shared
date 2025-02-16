@@ -10,8 +10,6 @@
     [Parameter]
     public Action<SessionModel<ProfileModel>> OnDelete { get; set; }
 
-    string Img64 => Convert.ToBase64String(Modelo.Account.Profile);
-
 
     void A()
     {
@@ -39,7 +37,7 @@
 }
 else
 {
-    <img @onclick="A" id="img-prof-@Modelo.Account.Id" class="flex-shrink-0 ring-2 inline-block h-9 w-9 rounded-full ring-white dark:ring-gray-800" src="data:image/png;base64,@Img64" alt="Image Description">
+    <img @onclick="A" id="img-prof-@Modelo.Account.Id" class="flex-shrink-0 ring-2 inline-block h-9 w-9 rounded-full ring-white dark:ring-gray-800" alt="Image Description">
 }
 
 
@@ -58,7 +56,7 @@ else
             }
             else
             {
-                <img class="flex-shrink-0 ring-2 inline-block h-9 w-9 rounded-full ring-white dark:ring-gray-800" src="data:image/png;base64,@Img64" alt="Image Description">
+                <img class="flex-shrink-0 ring-2 inline-block h-9 w-9 rounded-full ring-white dark:ring-gray-800"  alt="Image Description">
             }
 
             
