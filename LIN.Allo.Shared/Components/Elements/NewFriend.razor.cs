@@ -57,7 +57,7 @@ public partial class NewFriend
         }
 
         //Encuentra la conversación local.
-        var localConversation = ConversationsObserver.Get(conversation.LastID);
+        var localConversation = ConversationsObserver.Get(conversation.LastId);
 
         // Si existe local.
         if (localConversation != null)
@@ -70,7 +70,7 @@ public partial class NewFriend
 
 
         // Crear o encontrar la conversación en la API.
-        var apiConversation = await Access.Communication.Controllers.Conversations.Read(conversation.LastID, session.Token, session.AccountToken);
+        var apiConversation = await Access.Communication.Controllers.Conversations.Read(conversation.LastId, session.Token, session.AccountToken);
 
 
         // Error.
