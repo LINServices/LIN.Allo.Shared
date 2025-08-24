@@ -1,4 +1,6 @@
-﻿namespace LIN.Allo.Shared.Components.Elements;
+﻿using LIN.Types.Cloud.Identity.Models.Identities;
+
+namespace LIN.Allo.Shared.Components.Elements;
 
 
 public partial class Control : IConversationViewer, IDisposable
