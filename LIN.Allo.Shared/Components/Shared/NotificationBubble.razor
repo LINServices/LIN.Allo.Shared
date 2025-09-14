@@ -1,0 +1,94 @@
+﻿@using Microsoft.JSInterop
+
+<div class="z-[99999] pointer-events-none fixed right-4 top-4" style="@(_isOpen ? "" : "display: none;")">
+    <div class="translate-y-[-8px] scale-[0.98]
+        pointer-events-auto flex w-80 max-w-[90vw] items-center gap-3
+        rounded-2xl border
+        border-slate-200 bg-white/90 px-4
+        py-3
+        opacity-0 shadow-xl backdrop-blur
+        transition-all duration-300 ease-out will-change-transform"
+         style="@(_isOpen ? "opacity:1; transform:translateY(0) scale(1);" : "")"
+         role="status"
+         aria-live="polite">
+        <img src="@AvatarUrl"
+             alt="avatar"
+             class="h-10 w-10 rounded-full border border-slate-200 object-cover" />
+
+        <div class="min-w-0">
+            <div class="truncate font-semibold text-slate-900">@Title</div>
+            <div class="truncate text-sm text-slate-500">@Subtitle</div>
+
+            @if (ShowProgressBar)
+            {
+                <div class="mt-2 h-1 w-full overflow-hidden rounded-full bg-slate-200">
+                    <div class="animate-[progress_2s_linear_infinite] h-full bg-emerald-500"></div>
+                </div>
+            }
+        </div>
+
+        <div class="ml-auto flex gap-2">
+
+            <svg @onclick="Close" class="h-6 w-6 fill-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M183.1 137.4C170.6 124.9 150.3 124.9 137.8 137.4C125.3 149.9 125.3 170.2 137.8 182.7L275.2 320L137.9 457.4C125.4 469.9 125.4 490.2 137.9 502.7C150.4 515.2 170.7 515.2 183.2 502.7L320.5 365.3L457.9 502.6C470.4 515.1 490.7 515.1 503.2 502.6C515.7 490.1 515.7 469.8 503.2 457.3L365.8 320L503.1 182.6C515.6 170.1 515.6 149.8 503.1 137.3C490.6 124.8 470.3 124.8 457.8 137.3L320.5 274.7L183.1 137.4z" /></svg>
+
+            <svg @onclick="Handle" xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="h-6 w-6 shrink-0 fill-emerald-500" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+            </svg>
+
+        </div>
+
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; } = "Tim Cook";
+    [Parameter] public string Subtitle { get; set; } = "Calling you";
+    [Parameter] public string AvatarUrl { get; set; } = "_content/app/avatar.png";
+    [Parameter] public string? SoundUrl { get; set; } = "audio/teams.mp3";
+    [Parameter] public bool ShowProgressBar { get; set; } = false;
+
+    public Action OnAccept { get; set; } = () => { };
+
+    private bool _isOpen;
+    private IJSObjectReference? _module;
+
+    [Inject] private IJSRuntime JS { get; set; } = default!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/notificationAudio.js");
+        }
+    }
+
+    public async Task Open()
+    {
+        _isOpen = true;
+        StateHasChanged();
+
+        if (_module is not null && !string.IsNullOrWhiteSpace(SoundUrl))
+        {
+            await _module.InvokeVoidAsync("playAudio", SoundUrl);
+        }
+    }
+
+    public async Task Close()
+    {
+        _isOpen = false;
+        StateHasChanged();
+
+        if (_module is not null)
+        {
+            await _module.InvokeVoidAsync("stopAudio");
+        }
+
+
+    }
+
+    public async Task Handle()
+    {
+       await Close();
+        OnAccept();
+    }
+}
