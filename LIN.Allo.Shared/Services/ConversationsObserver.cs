@@ -215,7 +215,7 @@ public static class ConversationsObserver
 
         local.Item2.Messages ??= [];
 
-        var exist = local.Item2.Messages.Where(t => t.Guid == message.Guid);
+        var exist = local.Item2.Messages.Where(t => t.Guid == message.Guid && !string.IsNullOrWhiteSpace(t.Guid));
 
         if (exist.Any())
         {
@@ -224,8 +224,6 @@ public static class ConversationsObserver
 
             foreach (var tracker in trackers)
                 tracker.Change();
-
-
 
             Remove(conversation);
 
