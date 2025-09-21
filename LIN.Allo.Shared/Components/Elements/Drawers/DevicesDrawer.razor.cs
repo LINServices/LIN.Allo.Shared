@@ -53,7 +53,6 @@ public partial class DevicesDrawer
     /// </summary>
     private async Task<bool> GetDevices()
     {
-
         // Items
         var items = await Access.Communication.Controllers.Profiles.Devices(Access.Communication.Session.Instance.Token);
 
@@ -64,7 +63,6 @@ public partial class DevicesDrawer
         items.Models = [.. items.Models.Where(t => t.ConnectionId != Device.ConnectionId)];
         StateHasChanged();
         return true;
-
     }
 
 }

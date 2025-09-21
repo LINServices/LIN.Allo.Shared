@@ -117,7 +117,7 @@ public class Scripts
         });
 
         // Enviar el mensaje al servicio.
-        await RealTime.Hub!.SendMessage(conversation.Conversation.Id, content ?? string.Empty, guid, Access.Communication.Session.Instance.Token);
+       // await RealTime.Hub!.SendMessage(conversation.Conversation.Id, content ?? string.Empty, guid, Access.Communication.Session.Instance.Token);
 
     }
 
