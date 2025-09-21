@@ -1,6 +1,5 @@
 ﻿namespace LIN.Allo.Shared.Components.Elements;
 
-
 public partial class DeviceControl
 {
 
@@ -40,33 +39,37 @@ public partial class DeviceControl
         string device = "";
         string surface = "";
 
-        switch (Model.OperativeSystem)
+        switch (Model.Platform)
         {
-            case "android":
+            case Types.Enumerations.Platforms.Android:
                 device = "android";
                 break;
-            case "windows":
+            case Types.Enumerations.Platforms.Windows:
                 device = "windows";
                 break;
-            case "ios":
+            case Types.Enumerations.Platforms.IOs:
                 device = "ios";
                 break;
-            case "linux":
+            case Types.Enumerations.Platforms.Linux:
                 device = "linux";
                 break;
-            case "macos":
+            case Types.Enumerations.Platforms.MacOs:
                 device = "macos";
                 break;
         }
 
-        surface = Model.SurfaceFrom switch
+        if (Model.SurfaceFrom == Types.Enumerations.SurfaceFrom.WebApp)
         {
-            "edge" => "edge",
-            "chrome" => "chrome",
-            "safari" => "safari",
-            "native" => "",
-            _ => "globe",
-        };
+            surface = Model.Browser switch
+            {
+                Types.Enumerations.Browsers.Edge => "edge",
+                Types.Enumerations.Browsers.Chrome => "chrome",
+                Types.Enumerations.Browsers.Safari => "safari",
+                _ => "globe",
+            };
+        }
+
+
         return (string.Format(path, device), string.IsNullOrWhiteSpace(surface) ? string.Empty : string.Format(path, surface));
 
     }
