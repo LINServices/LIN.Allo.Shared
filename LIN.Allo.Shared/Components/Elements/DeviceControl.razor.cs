@@ -54,6 +54,9 @@ public partial class DeviceControl
             case "linux":
                 device = "linux";
                 break;
+            case "macos":
+                device = "macos";
+                break;
         }
 
         surface = Model.SurfaceFrom switch
