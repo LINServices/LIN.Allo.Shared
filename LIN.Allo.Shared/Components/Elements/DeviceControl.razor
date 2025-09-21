@@ -1,7 +1,7 @@
 ﻿
-<div @onclick="SendEvent" class="mt-2 flex items-center rounded-lg bg-white p-3 shadow-sm dark:bg-zinc-900">
+<div @onclick="SendEvent" class="mt-2 flex items-center rounded-lg bg-zinc-900/50 p-3 shadow-sm">
    
-    <div class="bg-ring-100 h-10 w-10 rounded-lg p-2 ring-1 ring-zinc-300 dark:ring-zinc-600">
+    <div class="bg-ring-100 h-10 w-10 rounded-lg p-2 ring-1 ring-zinc-600">
 
         <div class="relative">
              <img class="h-full w-full" src="@GetImage().device" />
@@ -13,8 +13,8 @@
     </div>
 
     <div class="ml-2 flex flex-col">
-        <label class="text-sm font-bold text-zinc-700 dark:text-zinc-300">@(Model?.Name ?? "Sin nombre")</label>
-        <label class="-mt-1 text-xs text-zinc-600 dark:text-zinc-400">Dispositivo</label>
+        <label class="text-sm font-bold text-zinc-300">@(Model?.Name ?? "Sin nombre")</label>
+        <label class="-mt-1 text-xs text-zinc-400">Dispositivo</label>
     </div>
 
 </div>

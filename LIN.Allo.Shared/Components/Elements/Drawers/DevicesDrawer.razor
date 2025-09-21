@@ -2,16 +2,16 @@
 @inject DeviceOnAccountModel Device
 
 <!-- drawer component -->
-<div id="@_id" class="fixed bottom-0 left-0 right-0 z-50 flex w-full translate-y-full items-center justify-center overflow-y-auto transition-transform" tabindex="-1" aria-labelledby="drawer-bottom-label">
+<div id="@_id" class="fixed bottom-0 left-0 right-0 z-50 flex w-full translate-y-full items-center justify-center overflow-y-auto backdrop-blur-sm transition-transform" tabindex="-1" aria-labelledby="drawer-bottom-label">
 
-    <div class="w-full rounded-t-xl bg-white p-4 dark:bg-black lg:max-w-lg">
+    <div class="mx-3 w-full rounded-t-xl bg-zinc-800/90 p-4 backdrop-blur-md transition-transform lg:max-w-lg">
 
         <div class="mt-5 flex max-h-[70dvh] min-h-[70dvh] flex-col px-3">
 
             @* Header. *@
             <div class="mt-5 flex w-full flex-col items-center justify-center">
                 <svg class="h-8 w-8 fill-current-500" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="M24,2V6a1,1,0,0,1-2,0V3.439L16.7,8.71A1,1,0,1,1,15.3,7.292L20.61,2H18a1,1,0,0,1,0-2h4A2,2,0,0,1,24,2ZM20.655,14.856a3.1,3.1,0,0,0-4.28.006l-1.906,1.606A12.781,12.781,0,0,1,7.537,9.524l1.6-1.9a3.1,3.1,0,0,0,.006-4.28S7.291.939,7.261.907A3.085,3.085,0,0,0,2.933.861l-1.149,1c-7.72,8.209,12.2,28.138,20.4,20.3l.912-1.049a3.1,3.1,0,0,0,0-4.378C23.063,16.708,20.655,14.856,20.655,14.856Z" /></svg>
-                <label class="mt-2 text-xl font-bold dark:text-white">Continuar llamada en</label>
+                <label class="mt-2 text-xl font-bold text-white">Continuar llamada en</label>
             </div>
 
             @* Componentes. *@

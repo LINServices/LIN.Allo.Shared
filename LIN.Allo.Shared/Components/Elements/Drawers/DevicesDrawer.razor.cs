@@ -1,4 +1,4 @@
-﻿namespace LIN.Allo.Shared.Components.Shared;
+﻿namespace LIN.Allo.Shared.Components.Elements.Drawers;
 
 public partial class DevicesDrawer
 {
