@@ -11,30 +11,33 @@
          style="@(_isOpen ? "opacity:1; transform:translateY(0) scale(1);" : "")"
          role="status"
          aria-live="polite">
-        <img src="@AvatarUrl"
-             alt="avatar"
-             class="h-10 w-10 rounded-full border border-slate-200 object-cover" />
 
+        <div class="inline-flex h-10 w-10 items-center justify-center rounded-full border bg-zinc-100 p-2.5 font-bold leading-none text-zinc-600 dark:border-zinc-600 dark:bg-zinc-900"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-full w-full fill-zinc-500 dark:fill-zinc-200" viewBox="0 0 16 16"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"></path></svg></div>
+     
         <div class="min-w-0">
             <div class="truncate font-semibold text-slate-900">@Title</div>
-            <div class="truncate text-sm text-slate-500">@Subtitle</div>
+            <div class="-mt-1 truncate text-sm text-slate-500">@Subtitle</div>
 
             @if (ShowProgressBar)
             {
                 <div class="mt-2 h-1 w-full overflow-hidden rounded-full bg-slate-200">
-                    <div class="animate-[progress_2s_linear_infinite] h-full bg-emerald-500"></div>
+                    <div class="animate-[progress_2s_linear_infinite] h-full bg-current-500"></div>
                 </div>
             }
         </div>
 
         <div class="ml-auto flex gap-2">
 
-            <svg @onclick="Close" class="h-6 w-6 fill-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M183.1 137.4C170.6 124.9 150.3 124.9 137.8 137.4C125.3 149.9 125.3 170.2 137.8 182.7L275.2 320L137.9 457.4C125.4 469.9 125.4 490.2 137.9 502.7C150.4 515.2 170.7 515.2 183.2 502.7L320.5 365.3L457.9 502.6C470.4 515.1 490.7 515.1 503.2 502.6C515.7 490.1 515.7 469.8 503.2 457.3L365.8 320L503.1 182.6C515.6 170.1 515.6 149.8 503.1 137.3C490.6 124.8 470.3 124.8 457.8 137.3L320.5 274.7L183.1 137.4z" /></svg>
+            <button type="button" class="inline-flex items-center rounded-full bg-red-500 p-2 text-center text-xs font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                <svg @onclick="Close" class="h-4 w-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M183.1 137.4C170.6 124.9 150.3 124.9 137.8 137.4C125.3 149.9 125.3 170.2 137.8 182.7L275.2 320L137.9 457.4C125.4 469.9 125.4 490.2 137.9 502.7C150.4 515.2 170.7 515.2 183.2 502.7L320.5 365.3L457.9 502.6C470.4 515.1 490.7 515.1 503.2 502.6C515.7 490.1 515.7 469.8 503.2 457.3L365.8 320L503.1 182.6C515.6 170.1 515.6 149.8 503.1 137.3C490.6 124.8 470.3 124.8 457.8 137.3L320.5 274.7L183.1 137.4z" /></svg>
+            </button>
 
-            <svg @onclick="Handle" xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="h-6 w-6 shrink-0 fill-emerald-500" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
-            </svg>
-
+            <button type="button" class="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 p-2 text-center text-xs font-medium text-white hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
+                <svg @onclick="Handle" xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="h-3 min-h-3 w-3 min-w-3 shrink-0 fill-white" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                </svg>
+            </button>
+            
         </div>
 
     </div>
