@@ -399,3 +399,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /LIN.Allo.Shared/wwwroot/js/app.bundle.js
+/LIN.Allo.Shared/wwwroot/js/app.bundle.js.map
