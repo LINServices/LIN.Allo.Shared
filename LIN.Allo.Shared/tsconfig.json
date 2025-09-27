@@ -7,7 +7,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "rootDir": "wwwroot/ts",
-    "outDir": "wwwroot/ts/.tsc" // carpeta temporal (no se publica); esbuild no la usa
+    "outDir": "wwwroot/ts/.tsc"
   },
   "include": [ "wwwroot/ts/**/*" ]
 }
