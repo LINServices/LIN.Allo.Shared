@@ -9,10 +9,10 @@ public partial class Members
 
 
 
-    bool IsEdit = false;
+    private bool IsEdit = false;
 
-    string Pattern;
-    string NewName = "";
+    private string Pattern;
+    private string NewName = "";
 
 
     /// <summary>
@@ -75,7 +75,7 @@ public partial class Members
 
 
 
-    ConversationModel? ConversationContext { get; set; }
+    private ConversationModel? ConversationContext { get; set; }
 
     /// <summary>
     /// Cargar los miembros.
@@ -175,8 +175,8 @@ public partial class Members
 
 
 
-    bool IsShowAdd = false;
-    void ShowAdd()
+    private bool IsShowAdd = false;
+    private void ShowAdd()
     {
         IsShowAdd = !IsShowAdd;
         StateHasChanged();
@@ -184,7 +184,7 @@ public partial class Members
 
 
 
-    void ShowEdit()
+    private void ShowEdit()
     {
 
         MessageLittle = ("", "");
@@ -201,9 +201,9 @@ public partial class Members
     }
 
 
-    (string, string) MessageLittle = ("text-red-500", "");
+    private (string, string) MessageLittle = ("text-red-500", "");
 
-    async void UpdateName()
+    private async void UpdateName()
     {
 
         if (string.IsNullOrWhiteSpace(NewName))
@@ -267,7 +267,7 @@ public partial class Members
     }
 
 
-    async void Insert()
+    private async void Insert()
     {
         if (ConversationContext == null)
         {
@@ -294,7 +294,7 @@ public partial class Members
 
 
 
-    async void Remove(int profile)
+    private async void Remove(int profile)
     {
 
         var remove = await Access.Communication.Controllers.Members.Remove(ConversationContext.Id, profile, Session.Instance.Token);

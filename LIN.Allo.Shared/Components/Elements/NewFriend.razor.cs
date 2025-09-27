@@ -95,7 +95,7 @@ public partial class NewFriend
     /// <summary>
     /// Secciones.
     /// </summary>
-    enum Sections
+    private enum Sections
     {
         Button,
         Loading,

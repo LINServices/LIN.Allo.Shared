@@ -7,7 +7,7 @@ namespace LIN.Allo.Shared.Components.Elements.Drawers;
 public partial class EmmaDrawer
 {
 
-    LIN.Emma.UI.Emma DocEmma { get; set; }
+    private LIN.Emma.UI.Emma DocEmma { get; set; }
 
 
 
@@ -53,13 +53,13 @@ public partial class EmmaDrawer
 
         if (DocEmma != null)
             DocEmma.ResponseIA = Access.Communication.Controllers.Emma.ToEmma(e, Access.Communication.Session.Instance.AccountToken);
-    
+
     }
 
 
 }
 
-class A : IConsole
+internal class A : IConsole
 {
     public void InsertLine(string error, string result, LogLevel logLevel)
     {

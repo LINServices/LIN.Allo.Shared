@@ -1,5 +1,4 @@
 ﻿using SILF.Script;
-using SILF.Script.DotnetRun;
 using SILF.Script.DotnetRun.Interop;
 using SILF.Script.Elements;
 using SILF.Script.Elements.Functions;
@@ -21,7 +20,7 @@ public class Scripts
         public List<Parameter> Parameters { get; set; } = new();
 
         Context IFunction.Context { get; set; }
-        Action<List<SILF.Script.Elements.ParameterValue>> Action;
+        private Action<List<SILF.Script.Elements.ParameterValue>> Action;
 
         public SILFFunction(Action<List<SILF.Script.Elements.ParameterValue>> action)
         {
@@ -48,7 +47,7 @@ public class Scripts
 
 
 
-   
+
 
     /// <summary>
     /// Construye las funciones.
@@ -117,7 +116,7 @@ public class Scripts
         });
 
         // Enviar el mensaje al servicio.
-       // await RealTime.Hub!.SendMessage(conversation.Conversation.Id, content ?? string.Empty, guid, Access.Communication.Session.Instance.Token);
+        // await RealTime.Hub!.SendMessage(conversation.Conversation.Id, content ?? string.Empty, guid, Access.Communication.Session.Instance.Token);
 
     }
 

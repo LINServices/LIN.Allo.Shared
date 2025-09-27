@@ -17,12 +17,12 @@ public static class ConversationsObserver
     /// <summary>
     /// Elementos a observar.
     /// </summary>
-    private readonly static Dictionary<int, List<IMessageChanger>> Trackers = [];
+    private static readonly Dictionary<int, List<IMessageChanger>> Trackers = [];
 
 
 
 
-    private readonly static Dictionary<int, List<IConversationViewer>> TrackersConversations = [];
+    private static readonly Dictionary<int, List<IConversationViewer>> TrackersConversations = [];
 
 
 

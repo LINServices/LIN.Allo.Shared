@@ -62,7 +62,9 @@ export function safeExecution<T>(callback: () => T): T | null {
         return null;
     }
 }
-
+export function supportShareScreen() : boolean {
+    return !!(navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia);
+}
 
 // ==== Exponer globales para Blazor/JS interop ====
 declare global {
@@ -81,4 +83,5 @@ Object.assign(window, {
     GoLaunch,
     getOperativeSystem,
     getBrowserName,
+    supportShareScreen
 });
