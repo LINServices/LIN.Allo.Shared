@@ -47,7 +47,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="LIN.Access.Auth" Version="2025.9.21" />
-		<PackageReference Include="LIN.Access.Communication" Version="2025.9.21.2" />
+		<PackageReference Include="LIN.Access.Communication" Version="2025.9.27" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.9" />
 	</ItemGroup>
 

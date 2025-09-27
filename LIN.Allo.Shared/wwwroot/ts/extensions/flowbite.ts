@@ -138,7 +138,7 @@ export function openDropDown(
     const triggerEl = byId<HTMLElement>(idOpen);
 
     const options = {
-        placement: "bottom" as const,
+        placement: "top" as const,
         triggerType: "click" as const,
         offsetSkidding: 0,
         offsetDistance: 10,

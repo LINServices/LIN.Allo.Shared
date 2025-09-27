@@ -1,0 +1,256 @@
+﻿@using System.Net.Http.Json
+@using System.Text.Json.Serialization
+@inject IJSRuntime JS
+
+<div id="@DropdownId"
+     class="z-50 mx-3 hidden w-[22rem] divide-y divide-gray-100 overflow-hidden rounded-2xl bg-white shadow-xl dark:divide-zinc-700 dark:bg-zinc-800 sm:w-[28rem]">
+    <div class="p-3">
+        <!-- Buscador -->
+        <div class="relative">
+            <input @bind="Query"
+                   @bind:event="oninput"
+                   @onkeydown="OnKeyDown"
+                   type="text"
+                   placeholder="Buscar GIFs (gatos, wow, memes)"
+                   class="w-full rounded-lg border border-gray-200 py-2 pl-10 pr-10 text-sm outline-none focus:ring-2 focus:ring-indigo-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100" />
+            <svg class="absolute left-3 top-2.5 h-4 w-4 text-gray-400" viewBox="0 0 24 24" fill="none">
+                <path d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <button type="button"
+                    class="absolute right-2 top-1.5 text-gray-400 hover:text-gray-600"
+                    @onclick="Clear"
+                    hidden="@string.IsNullOrWhiteSpace(Query)">
+                ✕
+            </button>
+        </div>
+    </div>
+
+    <div class="scroll-ui max-h-64 overflow-y-scroll p-3">
+        <!-- Grid -->
+        <div class="grid grid-cols-3 gap-2 overflow-hidden sm:grid-cols-4">
+            @if (IsLoading && !AppendMode)
+            {
+                @for (var i = 0; i < 8; i++)
+                {
+                    <div class="aspect-square animate-pulse rounded-lg bg-gray-200 dark:border-zinc-800 dark:bg-zinc-700"></div>
+                }
+            }
+            @foreach (var g in Gifs)
+            {
+                <button type="button"
+                        title="@g.Title"
+                        class="relative overflow-hidden rounded-lg border transition hover:shadow-md dark:border-zinc-700"
+                        @onclick="() => Select(g.Url)">
+                    <img src="@g.ThumbUrl" loading="lazy" alt="gif"
+                         class="block aspect-square h-full w-full object-cover" />
+                    <div class="absolute inset-0 bg-black/0 transition hover:bg-black/20"></div>
+                </button>
+            }
+        </div>
+
+        <div class="mt-3 text-xs text-gray-500">@Status</div>
+
+        <div class="mt-3 flex justify-center">
+            <button class="rounded-lg border px-3 py-2 text-sm hover:bg-gray-50 disabled:opacity-50 dark:text-zinc-400 dark:hover:bg-zinc-700"
+                    @onclick="LoadMore"
+                    disabled="@(IsLoading || string.IsNullOrWhiteSpace(_nextPos))"
+                    hidden="@string.IsNullOrWhiteSpace(_nextPos)">
+                @(IsLoading && AppendMode ? "Cargando…" : "Cargar más")
+            </button>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    // --------- Parámetros ----------
+    [Parameter] public string TenorApiKey { get; set; } = "AIzaSyBhgCcuS7QuNu6xKYcmKt3wQ53yQ5V4Pkw"; // <-- coloca tu API KEY
+    [Parameter] public string DropdownId { get; set; } = "dropdownTop";
+    [Parameter] public EventCallback<string> OnGifSelected { get; set; } // devuelve URL del GIF elegido
+
+    // --------- Estado ----------
+    private string Query { get; set; } = "";
+    private string Status { get; set; } = "";
+    private bool IsLoading { get; set; } = false;
+    private bool AppendMode { get; set; } = false;
+    private string _nextPos = "";
+    private const int PageSize = 24;
+
+    private readonly List<GifItem> Gifs = new();
+
+    // --------- API Tenor ----------
+    private async Task<ApiResponse?> FetchTenor(string endpoint, Dictionary<string, string> extra)
+    {
+        if (string.IsNullOrWhiteSpace(TenorApiKey))
+        {
+            Status = "Configura TenorApiKey.";
+            StateHasChanged();
+            return null;
+        }
+
+        var qp = new Dictionary<string, string>
+        {
+            ["key"] = TenorApiKey,
+            ["client_key"] = "blazor-gif-dropdown",
+            ["media_filter"] = "gif,tinygif",
+            ["limit"] = PageSize.ToString()
+        };
+
+        foreach (var kv in extra) qp[kv.Key] = kv.Value;
+
+        var qs = string.Join("&", qp.Select(kv => $"{kv.Key}={Uri.EscapeDataString(kv.Value)}"));
+        var url = $"https://tenor.googleapis.com/v2/{endpoint}?{qs}";
+
+        try
+        {
+            var Http = new HttpClient();
+            return await Http.GetFromJsonAsync<ApiResponse>(url);
+        }
+        catch
+        {
+            Status = "No se pudo conectar a Tenor.";
+            return null;
+        }
+    }
+
+    private static string PickGifUrl(ApiResult r)
+    {
+        // tinygif para preview rápida; si no, gif normal
+        var media = r.MediaFormats ?? new();
+        return media.TinyGif?.Url ?? media.Gif?.Url ?? r.Url ?? "";
+    }
+
+    private static string PickThumbUrl(ApiResult r)
+    {
+        var media = r.MediaFormats ?? new();
+        return media.TinyGif?.Url ?? media.Gif?.Url ?? r.Url ?? "";
+    }
+
+    private async Task LoadInternal(bool append)
+    {
+        IsLoading = true;
+        AppendMode = append;
+        Status = append ? Status : "Cargando…";
+        StateHasChanged();
+
+        var useTrending = string.IsNullOrWhiteSpace(Query);
+        var extra = new Dictionary<string, string>();
+        if (!string.IsNullOrWhiteSpace(_nextPos)) extra["pos"] = _nextPos;
+        if (!useTrending) extra["q"] = Query;
+
+        var data = await FetchTenor(useTrending ? "featured" : "search", extra);
+        if (data is null)
+        {
+            IsLoading = false;
+            StateHasChanged();
+            return;
+        }
+
+        if (!append) Gifs.Clear();
+
+        var items = (data.Results ?? new()).Select(r => new GifItem
+        {
+            Url = PickGifUrl(r),
+            ThumbUrl = PickThumbUrl(r),
+            Title = r.ContentDescription ?? "gif"
+        }).Where(g => !string.IsNullOrWhiteSpace(g.Url)).ToList();
+
+        Gifs.AddRange(items);
+        _nextPos = data.Next ?? "";
+        Status = items.Count == 0 ? "Sin resultados" : "";
+
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private Task Search()
+    {
+        _nextPos = "";
+        return LoadInternal(append: false);
+    }
+
+    private Task LoadTrending()
+    {
+        Query = "";
+        _nextPos = "";
+        return LoadInternal(append: false);
+    }
+
+    private Task LoadMore() => LoadInternal(append: true);
+
+    private void Clear()
+    {
+        Query = "";
+        _nextPos = "";
+        _ = LoadInternal(append: false);
+    }
+
+    [JSInvokableAttribute("OnHide")]
+    public void OnHide()
+    {
+    }
+    [JSInvokableAttribute("OnShow")]
+    public void OnShow()
+    {
+    }
+
+    private async Task Select(string url)
+    {
+        if (OnGifSelected.HasDelegate)
+            await OnGifSelected.InvokeAsync(url);
+    }
+
+    private async Task OnKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+            await Search();
+    }
+
+    // --------- Mostrar el dropdown (top) ----------
+    public async Task Show(string openButtonId)
+    {
+        // Requiere que exista tu función JS:
+        // openDropDown(id, idOpen, dotnetHelper?, ...idCloseBtn)
+        // Asegúrate de que coloque el dropdown en "top" (Flowbite usa data-dropdown-placement="top")
+        await JS.InvokeVoidAsync("openDropDown", DropdownId, openButtonId, DotNetObjectReference.Create(this));
+        // Carga inicial (tendencias) si está vacío
+        if (Gifs.Count == 0)
+        {
+            _nextPos = "";
+            await LoadInternal(append: false);
+        }
+    }
+
+    // --------- Modelos Tenor ----------
+    private sealed class ApiResponse
+    {
+        [JsonPropertyName("results")] public List<ApiResult>? Results { get; set; }
+        [JsonPropertyName("next")] public string? Next { get; set; }
+    }
+
+    private sealed class ApiResult
+    {
+        [JsonPropertyName("url")] public string? Url { get; set; }
+        [JsonPropertyName("content_description")] public string? ContentDescription { get; set; }
+        [JsonPropertyName("media_formats")] public MediaFormats? MediaFormats { get; set; }
+    }
+
+    private sealed class MediaFormats
+    {
+        [JsonPropertyName("gif")] public MediaItem? Gif { get; set; }
+        [JsonPropertyName("tinygif")] public MediaItem? TinyGif { get; set; }
+    }
+
+    private sealed class MediaItem
+    {
+        [JsonPropertyName("url")] public string? Url { get; set; }
+    }
+
+    private sealed class GifItem
+    {
+        public string Url { get; set; } = "";
+        public string ThumbUrl { get; set; } = "";
+        public string Title { get; set; } = "";
+    }
+}
