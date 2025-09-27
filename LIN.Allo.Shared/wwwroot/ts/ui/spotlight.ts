@@ -69,7 +69,7 @@ export function applyResponsiveSpotlightLayout() {
 }
 
 function moveTileTo(targetWrapper: HTMLElement, container: HTMLElement, thumb = false) {
-    targetWrapper.className = "rounded-2xl overflow-hidden bg-black border border-white/10";
+    targetWrapper.className = "rounded-xl overflow-hidden bg-black border border-white/10";
     const vid = targetWrapper.querySelector("video") as HTMLVideoElement | null;
     if (vid) vid.className = "w-full h-full object-cover";
 
@@ -82,7 +82,7 @@ function moveTileTo(targetWrapper: HTMLElement, container: HTMLElement, thumb = 
         targetWrapper.style.height = "100%";
         targetWrapper.style.minHeight = "";
         (targetWrapper.style as any).cursor = "default";
-        targetWrapper.classList.add("ring-2", "ring-red-500/60", "ring-offset-2", "ring-offset-black");
+        targetWrapper.classList.add("ring-2", "ring-offset-2", "ring-offset-black");
     }
     container.appendChild(targetWrapper);
 }
