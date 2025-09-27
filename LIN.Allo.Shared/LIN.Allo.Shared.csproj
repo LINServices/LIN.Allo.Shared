@@ -1,23 +1,62 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="LIN.Access.Auth" Version="2025.9.21" />
-	  <PackageReference Include="LIN.Access.Communication" Version="2025.9.21.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.9" />
-  </ItemGroup>
+	<!-- Asegura que package.json/tsconfig viajen si publicas -->
+	<ItemGroup>
+  <!-- Saca package.json y package-lock.json de los ítems del proyecto -->
+  <None Remove="package.json;package-lock.json" />
+  <Content Remove="package.json;package-lock.json" />
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\LIN.Emma.UI\LIN.Emma.UI\LIN.Emma.UI.csproj" />
-  </ItemGroup>
+  <!-- Por si algún Include previo los metió igual, anula copias y empaquetado -->
+  <None Update="package.json">
+    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    <Pack>false</Pack>
+  </None>
+  <None Update="package-lock.json">
+    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    <Pack>false</Pack>
+  </None>
+</ItemGroup>
+
+
+	<!-- 1) npm install antes de compilar -->
+	<Target Name="NpmInstall" BeforeTargets="Build">
+		<Exec Command="npm install" />
+	</Target>
+
+	<!-- 2) compilar TS en cada build -->
+	<Target Name="BuildTypeScript" AfterTargets="NpmInstall" BeforeTargets="Build">
+		<Exec Command="npm run build" />
+	</Target>
+
+	<!-- 3) compilar TS también al publicar -->
+	<Target Name="PublishTypeScript" AfterTargets="NpmInstall" BeforeTargets="Publish">
+		<Exec Command="npm run build" />
+	</Target>
+
+	<ItemGroup>
+		<PackageReference Include="LIN.Access.Auth" Version="2025.9.21" />
+		<PackageReference Include="LIN.Access.Communication" Version="2025.9.21.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.9" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\LIN.Emma.UI\LIN.Emma.UI\LIN.Emma.UI.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="wwwroot\js\" />
+	</ItemGroup>
 
 </Project>

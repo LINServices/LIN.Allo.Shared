@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "node ./esbuild.mjs",
+    "watch": "node ./esbuild.mjs --watch"
+  },
+  "devDependencies": {
+    "@microsoft/signalr": "^9.0.6",
+    "esbuild": "^0.23.0",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "flowbite": "^3.1.2"
+  }
+}

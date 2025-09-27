@@ -53,26 +53,18 @@
     public Action OnAccept { get; set; } = () => { };
 
     private bool _isOpen;
-    private IJSObjectReference? _module;
 
-    [Inject] private IJSRuntime JS { get; set; } = default!;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            _module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/notificationAudio.js");
-        }
-    }
+    [Inject] 
+    private IJSRuntime JS { get; set; } = default!;
 
     public async Task Open()
     {
         _isOpen = true;
         StateHasChanged();
 
-        if (_module is not null && !string.IsNullOrWhiteSpace(SoundUrl))
+        if (!string.IsNullOrWhiteSpace(SoundUrl))
         {
-            await _module.InvokeVoidAsync("playAudio", SoundUrl);
+            await JS.InvokeVoidAsync("playAudio", SoundUrl);
         }
     }
 
@@ -81,10 +73,7 @@
         _isOpen = false;
         StateHasChanged();
 
-        if (_module is not null)
-        {
-            await _module.InvokeVoidAsync("stopAudio");
-        }
+            await JS.InvokeVoidAsync("stopAudio");
 
 
     }

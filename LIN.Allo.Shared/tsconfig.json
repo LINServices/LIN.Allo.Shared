@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "rootDir": "wwwroot/ts",
+    "outDir": "wwwroot/ts/.tsc" // carpeta temporal (no se publica); esbuild no la usa
+  },
+  "include": [ "wwwroot/ts/**/*" ]
+}
